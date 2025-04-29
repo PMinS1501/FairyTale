@@ -11,7 +11,7 @@ export default function Home() {
       <div className="w-full max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">마법의 이야기</h1>
-          <p className="text-xl text-muted-foreground">목소리와 AI를 사용하여 맞춤형 동화책을 만들어보세요</p>
+          <p className="text-xl text-muted-foreground">오늘 하루 경험을 동화로 만들어 보세요!</p>
         </div>
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
