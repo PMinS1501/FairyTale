@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -19,99 +18,67 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
 
   const isHomePage = pathname === "/"
 
-  let backgroundStyle = {}
+  let backgroundContent = null
 
-  if (theme === "space") {
+  if (theme === "space" || theme === "sky" || theme === "ocean") {
     if (isHomePage) {
-      backgroundStyle = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        background: "url('/space.mp4') center/cover no-repeat fixed",
-      }
+      // 홈에서는 video 재생
+      backgroundContent = (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: -1,
+          }}
+        >
+          <source src={'/${theme}.mp4'} type="video/mp4" />
+        </video>
+      )
     } else {
-      backgroundStyle = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        background: "url('/space.jpg') center/cover no-repeat fixed",
-      }
+      // 다른 페이지는 고정 이미지
+      backgroundContent = (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "url('/${theme}.jpg') center/cover no-repeat fixed",
+            zIndex: -1,
+          }}
+        />
+      )
     }
-  } else if (theme === "sky") {
-    if (isHomePage) {
-      backgroundStyle = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        background: "url('/sky.mp4') center/cover no-repeat fixed",
-      }
-    } else {
-      backgroundStyle = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        background: "url('/sky.jpg') center/cover no-repeat fixed",
-      }
-    }
-  } else if (theme === "rabbit") {
-    backgroundStyle = {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      zIndex: -1,
-      background: "url('/rabbit.png') center/cover no-repeat fixed",
-    }
-  } else if (theme === "dog") {
-    backgroundStyle = {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      zIndex: -1,
-      background: "url('/dog.png') center/cover no-repeat fixed",
-    }
-  } else if (theme === "ocean") {
-    if (isHomePage) {
-      backgroundStyle = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        background: "url('/ocean.mp4') center/cover no-repeat fixed",
-      }
-    } else {
-      backgroundStyle = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-        background: "url('/ocean.jpg') center/cover no-repeat fixed",
-      }
-    }
+  } else if (theme === "rabbit" || theme === "dog") {
+    // 반복 패턴 배경
+    backgroundContent = (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "url('/${theme}.png') repeat",
+          backgroundSize: "150px 150px", // 패턴 크기 조정
+          zIndex: -1,
+        }}
+      />
+    )
   }
 
   return (
     <>
-      <div style={backgroundStyle}></div>
+      {backgroundContent}
       <div className="relative z-0">{children}</div>
     </>
   )
