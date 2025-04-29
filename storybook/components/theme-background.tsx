@@ -22,7 +22,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
 
   if (theme === "space" || theme === "sky" || theme === "ocean") {
     if (isHomePage) {
-      // 홈에서는 video 재생
+      // 홈에서는 mp4 비디오 재생
       backgroundContent = (
         <video
           autoPlay
@@ -39,11 +39,13 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
             zIndex: -1,
           }}
         >
-          <source src={'/${theme}.mp4'} type="video/mp4" />
+          <source src={`/backgrounds/${theme}.mp4`} type="video/mp4" />
+          {/* 브라우저가 mp4를 지원하지 않으면 대체 텍스트 */}
+          Your browser does not support the video tag.
         </video>
       )
     } else {
-      // 다른 페이지는 고정 이미지
+      // 다른 페이지는 jpg 이미지
       backgroundContent = (
         <div
           style={{
@@ -52,14 +54,14 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
             left: 0,
             width: "100%",
             height: "100%",
-            background: "url('/${theme}.jpg') center/cover no-repeat fixed",
+            background: `url('/backgrounds/${theme}.jpg') center/cover no-repeat fixed`,
             zIndex: -1,
           }}
         />
       )
     }
   } else if (theme === "rabbit" || theme === "dog") {
-    // 반복 패턴 배경
+    // 항상 반복 패턴
     backgroundContent = (
       <div
         style={{
@@ -68,8 +70,9 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
           left: 0,
           width: "100%",
           height: "100%",
-          background: "url('/${theme}.png') repeat",
+          background: `url('/backgrounds/${theme}.png') repeat`,
           backgroundSize: "150px 150px", // 패턴 크기 조정
+          backgroundAttachment: "fixed", // 스크롤해도 고정
           zIndex: -1,
         }}
       />
