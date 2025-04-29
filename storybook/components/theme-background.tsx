@@ -39,7 +39,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
             zIndex: -1,
           }}
         >
-          <source src={`/backgrounds/${theme}.mp4`} type="video/mp4" />
+          <source src={`/${theme}.mp4`} type="video/mp4" />
           {/* 브라우저가 mp4를 지원하지 않으면 대체 텍스트 */}
           Your browser does not support the video tag.
         </video>
@@ -54,7 +54,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
             left: 0,
             width: "100%",
             height: "100%",
-            background: `url('/backgrounds/${theme}.jpg') center/cover no-repeat fixed`,
+            background: `url('/${theme}.jpg') center/cover no-repeat fixed`,
             zIndex: -1,
           }}
         />
@@ -70,7 +70,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
           left: 0,
           width: "100%",
           height: "100%",
-          background: `url('/backgrounds/${theme}.png') repeat`,
+          background: `url('/${theme}.png') repeat`,
           backgroundSize: "150px 150px", // 패턴 크기 조정
           backgroundAttachment: "fixed", // 스크롤해도 고정
           zIndex: -1,
