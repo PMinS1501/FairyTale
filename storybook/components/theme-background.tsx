@@ -30,7 +30,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
         width: "100%",
         height: "100%",
         zIndex: -1,
-        background: "url('/placeholder.svg?height=1080&width=1920&text=space.mp4') center/cover no-repeat fixed",
+        background: "url('/space.mp4') center/cover no-repeat fixed",
       }
     } else {
       backgroundStyle = {
@@ -40,7 +40,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
         width: "100%",
         height: "100%",
         zIndex: -1,
-        background: "url('/placeholder.svg?height=1080&width=1920&text=space.jpg') center/cover no-repeat fixed",
+        background: "url('/space.jpg') center/cover no-repeat fixed",
       }
     }
   } else if (theme === "sky") {
@@ -52,7 +52,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
         width: "100%",
         height: "100%",
         zIndex: -1,
-        background: "url('/placeholder.svg?height=1080&width=1920&text=sky.mp4') center/cover no-repeat fixed",
+        background: "url('/sky.mp4') center/cover no-repeat fixed",
       }
     } else {
       backgroundStyle = {
@@ -62,7 +62,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
         width: "100%",
         height: "100%",
         zIndex: -1,
-        background: "url('/placeholder.svg?height=1080&width=1920&text=sky.jpg') center/cover no-repeat fixed",
+        background: "url('/sky.jpg') center/cover no-repeat fixed",
       }
     }
   } else if (theme === "rabbit") {
@@ -73,7 +73,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
       width: "100%",
       height: "100%",
       zIndex: -1,
-      background: "url('/placeholder.svg?height=1080&width=1920&text=rabbit.png') center/cover no-repeat fixed",
+      background: "url('/rabbit.png') center/cover no-repeat fixed",
     }
   } else if (theme === "dog") {
     backgroundStyle = {
@@ -83,7 +83,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
       width: "100%",
       height: "100%",
       zIndex: -1,
-      background: "url('/placeholder.svg?height=1080&width=1920&text=dog.png') center/cover no-repeat fixed",
+      background: "url('/dog.png') center/cover no-repeat fixed",
     }
   } else if (theme === "ocean") {
     if (isHomePage) {
@@ -94,7 +94,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
         width: "100%",
         height: "100%",
         zIndex: -1,
-        background: "url('/placeholder.svg?height=1080&width=1920&text=ocean.mp4') center/cover no-repeat fixed",
+        background: "url('/ocean.mp4') center/cover no-repeat fixed",
       }
     } else {
       backgroundStyle = {
@@ -104,7 +104,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
         width: "100%",
         height: "100%",
         zIndex: -1,
-        background: "url('/placeholder.svg?height=1080&width=1920&text=ocean.jpg') center/cover no-repeat fixed",
+        background: "url('/ocean.jpg') center/cover no-repeat fixed",
       }
     }
   }
