@@ -19,7 +19,7 @@ export default function Home() {
             시작하기
           </Button>
 
-          <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/history")}>
+          <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/selection")}>
             과거 이력
           </Button>
         </div>
