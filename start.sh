@@ -27,7 +27,7 @@ fi
 
 cd "../$REPO_NAME" || exit 1
 echo "[*] Git 변경사항 확인 및 pull..."
-git pull --no-rebase origin Backend-0.0.1 # 백엔드 브랜치: Backend-0.0.1
+git pull --ff-only origin Backend-0.0.1 # 백엔드 브랜치: Backend-0.0.1
 
 # -------------------------------
 # 3. 가상환경 생성 및 활성화
