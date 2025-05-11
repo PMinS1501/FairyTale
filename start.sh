@@ -44,9 +44,11 @@ fi
 # 운영체제별 가상환경 activate
 if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
   # Windows Git Bash
+  echo "[+] Create windows venv"
   source venv/Scripts/activate
 else
   # Linux/macOS
+  echo "[+] Create Linux/macOS venv"
   source venv/bin/activate
 fi
 
