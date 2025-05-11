@@ -68,10 +68,10 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
           position: "fixed",
           top: 0,
           left: 0,
-          width: "100%",
-          height: "100%",
+          width: "300%",
+          height: "300%",
           background: `url('/${theme}.png') repeat`,
-          backgroundSize: "150px 150px", // 패턴 크기 조정
+          backgroundSize: "300px 300px", // 패턴 크기 조정
           backgroundAttachment: "fixed", // 스크롤해도 고정
           zIndex: -1,
         }}

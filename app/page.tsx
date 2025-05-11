@@ -20,7 +20,7 @@ export default function Home() {
           </Button>
 
           <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/selection")}>
-            과거 이력
+            동화 목록
           </Button>
         </div>
 
