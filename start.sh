@@ -11,12 +11,12 @@ REPO_URL="https://github.com/PMinS1501/FairyTale.git"
 REPO_NAME="FairyTale"
 
 # -------------------------------
-# 1. Git clone (상위 디렉토리에 없으면)
+# 1. Git clone (특정 브랜치만 클론)
 # -------------------------------
 
 if [ ! -d "../$REPO_NAME" ]; then
   echo "[+] Git 레포가 없어서 클론합니다: $REPO_URL"
-  git clone "$REPO_URL" "../$REPO_NAME"
+  git clone --single-branch --branch Backend-0.0.1 "$REPO_URL" "../$REPO_NAME"
 else
   echo "[✓] Git 레포가 현재 경로에 이미 존재합니다."
 fi
