@@ -2,61 +2,31 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import { Loader2 } from "lucide-react"
 import HomeButton from "@/components/home-button"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
-// Sample pre-made storybooks
-const premadeStorybooks = [
-  {
-    id: 1,
-    title: "숲속 모험",
-    image: "/placeholder.svg?height=150&width=250",
-    keywords: ["모험", "우정", "용기"],
-    description:
-      "작은 다람쥐가 숲속에서 새로운 친구들을 만나 용기를 배우는 이야기입니다. 다람쥐는 처음에는 두려움이 많았지만, 친구들과 함께하며 모험을 통해 용기를 얻게 됩니다.",
-  },
-  {
-    id: 2,
-    title: "바다 탐험가",
-    image: "/placeholder.svg?height=150&width=250",
-    keywords: ["발견", "팀워크", "인내"],
-    description:
-      "호기심 많은 물고기가 바다 깊은 곳을 탐험하며 다양한 해양 생물들과 팀을 이루어 문제를 해결해나가는 이야기입니다. 함께 협력하는 과정에서 인내의 중요성을 배웁니다.",
-  },
-  {
-    id: 3,
-    title: "우주 여행",
-    image: "/placeholder.svg?height=150&width=250",
-    keywords: ["상상력", "호기심", "학습"],
-    description:
-      "꿈 많은 아이가 우주선을 타고 다양한 행성을 방문하며 우주의 신비를 배우는 이야기입니다. 각 행성에서 새로운 지식을 얻고 상상력을 키워나갑니다.",
-  },
-]
+interface Storybook {
+  id: number
+  img: string
+  title: string
+  play_time: string
+  keyword: string
+}
 
 export default function LoadingPage() {
   const router = useRouter()
   const [progress, setProgress] = useState(0)
-  const [selectedBook, setSelectedBook] = useState<number | null>(null)
+  const [samples, setSamples] = useState<Storybook[]>([])
 
   useEffect(() => {
-    // Simulate AI generating stories
+    // AI 생성 시뮬레이션
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval)
-          // Navigate to selection page after "generating" is complete
           setTimeout(() => {
             router.push("/selection")
           }, 500)
@@ -65,17 +35,20 @@ export default function LoadingPage() {
         return prev + 5
       })
     }, 300)
-
     return () => clearInterval(interval)
   }, [router])
 
-  const handleBookClick = (id: number) => {
-    setSelectedBook(id)
-  }
-
-  const getSelectedBook = () => {
-    return premadeStorybooks.find((book) => book.id === selectedBook)
-  }
+  useEffect(() => {
+    // API 호출
+    fetch("/api/samples")
+      .then((res) => res.json())
+      .then((data) => {
+        setSamples(data.slice(0, 3)) // 최대 3개만 사용
+      })
+      .catch((err) => {
+        console.error("Sample fetch error:", err)
+      })
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center p-8">
@@ -93,60 +66,33 @@ export default function LoadingPage() {
           </p>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 w-full">
           <h2 className="text-2xl font-semibold mb-6 bg-white/80 px-4 py-2 rounded-md inline-block">
             기다리는 동안 이런 동화책은 어떠세요:
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {premadeStorybooks.map((book) => (
+            {samples.map((book) => (
               <Card
                 key={book.id}
                 className="p-4 flex flex-col bg-white/90 backdrop-blur-sm cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => handleBookClick(book.id)}
               >
                 <div className="relative h-40 mb-4">
                   <Image
-                    src={book.image || "/placeholder.svg"}
+                    src={book.img || "/placeholder.svg"}
                     alt={book.title}
                     fill
                     className="object-cover rounded-md"
                   />
                 </div>
-                <h3 className="text-lg font-medium mb-2">{book.title}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {book.keywords.map((keyword) => (
-                    <Badge key={keyword} variant="secondary">
-                      {keyword}
-                    </Badge>
-                  ))}
-                </div>
+                <h3 className="text-lg font-semibold mb-1">{book.title}</h3>
+                <Badge variant="secondary" className="mb-2 w-fit">{book.keyword}</Badge>
+                <p className="text-sm text-muted-foreground">재생 시간: {book.play_time}</p>
               </Card>
             ))}
           </div>
         </div>
       </div>
-
-      <Dialog open={selectedBook !== null} onOpenChange={(open) => !open && setSelectedBook(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{getSelectedBook()?.title}</DialogTitle>
-            <DialogDescription>{getSelectedBook()?.keywords.join(", ")}</DialogDescription>
-          </DialogHeader>
-          <div className="relative h-40 mb-4">
-            <Image
-              src={getSelectedBook()?.image || "/placeholder.svg"}
-              alt={getSelectedBook()?.title || ""}
-              fill
-              className="object-cover rounded-md"
-            />
-          </div>
-          <p className="text-sm">{getSelectedBook()?.description}</p>
-          <DialogClose asChild>
-            <Button className="mt-4">닫기</Button>
-          </DialogClose>
-        </DialogContent>
-      </Dialog>
     </main>
   )
 }
