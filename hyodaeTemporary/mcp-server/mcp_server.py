@@ -211,7 +211,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--transport", type=str, help="Transport method to use")    
     parser.add_argument(
-        "--port", type=int, default=8000, help="Port to run server on (default: 8000)"
+        "--port", type=int, default=6000, help="Port to run server on (default: 6000)"
     )
     
     args = parser.parse_args()
