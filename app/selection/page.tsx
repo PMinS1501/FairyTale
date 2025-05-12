@@ -51,6 +51,9 @@ export default function SelectionPage() {
     }
   }
 
+  const handleCreateStory = () => {
+    router.push("/questions")
+  }
 
   return (
     <main className="p-8">
@@ -63,7 +66,7 @@ export default function SelectionPage() {
       ) : storybooks.length === 0 ? (
         <div className = "text-center">
         <p className="text-center text-muted-foreground mb-4">생성된 동화가 없습니다! 만들어 보세요!</p>
-        <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/questions")}>동화 목록</Button>
+        <Button onClick={handleCreateStory}>만들러 가기</Button>
         </div>
       ) : (
         <>
