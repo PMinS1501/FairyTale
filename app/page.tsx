@@ -18,12 +18,7 @@ export default function Home() {
           <Button size="lg" className="h-16 text-lg" onClick={() => router.push("/questions")}>
             시작하기
           </Button>
-
           <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/selection")}>
-            동화 목록
-          </Button>
-          
-          <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/loading")}>
             동화 목록
           </Button>
         </div>
