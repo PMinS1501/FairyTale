@@ -40,6 +40,7 @@ export default function QuestionsPage() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [selectedCharacter, setSelectedCharacter] = useState(0)
   const [helpDialogOpen, setHelpDialogOpen] = useState(false)
+  const [helpTab, setHelpTab] = useState<1 | 2>(1)
   const [isUploading, setIsUploading] = useState(false)
   const [screenSize, setScreenSize] = useState({
     isMobile: false,
@@ -193,23 +194,37 @@ export default function QuestionsPage() {
       >
         <HelpCircle className="h-5 w-5" />
       </Button>
-
+      
       <AlertDialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>도움말</AlertDialogTitle>
-            <AlertDialogDescription>
-              각 질문에 대해 음성으로 답변해주세요. 녹음 버튼을 누르고 답변을 말한 후 중지 버튼을 누르세요. 모든 질문에
-              답변하면 AI가 맞춤형 동화책을 생성합니다.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction>확인</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      <div className="w-full max-w-3xl mx-auto">
+            <div className="flex gap-2 mb-2">
+              <Button
+              variant={helpTab === 1 ? "default" : "outline"}
+              onClick={() => setHelpTab(1)}
+              >녹음하는 법</Button>
+              <Button
+                variant={helpTab === 2 ? "default" : "outline"}
+                onClick={() => setHelpTab(2)}
+              >동화 재생하는 법</Button>
+              </div>
+              <AlertDialogDescription>
+                {helpTab === 1 ? (
+                  <p>각 질문에 대해 음성으로 답변해주세요. <br />
+                  <strong>녹음 버튼</strong>을 누르고 말한 후 <strong>중지 버튼</strong>을 누르세요. <br />
+                  모든 질문에 답변하면 AI가 동화를 생성합니다.</p> ) : ( <p>
+                  재생 버튼을 누르면 동화의 <strong>음성과 이미지</strong>가 함께 나옵니다. <br />문장을 읽으며 동화를 감상하세요.</p>
+                  )}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction onClick={() => setHelpDialogOpen(false)}>닫기</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+          
+        <div className="w-full max-w-3xl mx-auto">
         <div className="mb-4 sm:mb-6 md:mb-8">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
             질문 {currentQuestionIndex + 1} / {questions.length}
