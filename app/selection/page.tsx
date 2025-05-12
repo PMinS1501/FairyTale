@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
@@ -17,18 +17,12 @@ interface Storybook {
 
 export default function SelectionPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [storybooks, setStorybooks] = useState<Storybook[]>([])
   const [selectedBook, setSelectedBook] = useState<number | null>(null)
-  const [highlightedBookId, setHighlightedBookId] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
   useEffect(() => {
-    const idParam = searchParams.get("highlightedId")
-    if (idParam) {
-      setHighlightedBookId(Number(idParam))
-    }
     fetch("/api/stories")
       .then((res) => {
         if (!res.ok) throw new Error("API 실패")
@@ -43,16 +37,12 @@ export default function SelectionPage() {
         setHasError(true)
         setIsLoading(false)
       })
-  }, [searchParams])
+  }, [])
 
   const handleViewBook = () => {
     if (selectedBook !== null) {
       router.push(`/storybook/${selectedBook}`)
     }
-  }
-
-  const handleCreateStory = () => {
-    router.push("/questions")
   }
 
   return (
@@ -64,17 +54,14 @@ export default function SelectionPage() {
       ) : hasError ? (
         <p className="text-center text-red-500">동화를 불러오는 데 실패했습니다.</p>
       ) : storybooks.length === 0 ? (
-        <div className = "text-center">
-        <p className="text-center text-muted-foreground mb-4">생성된 동화가 없습니다! 만들어 보세요!</p>
-        <Button onClick={handleCreateStory}>만들러 가기</Button>
-        </div>
+        <p className="text-center text-muted-foreground">불러올 동화가 없습니다.</p>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {storybooks.map((book) => (
               <Card
                 key={book.id}
-                className={`p-4 cursor-pointer transition-all ${selectedBook === book.id ? "ring-2 ring-primary" : ""} ${highlightedBookId === book.id ? "border-4 border-yellow-400" : ""}`}
+                className={`p-4 cursor-pointer ${selectedBook === book.id ? "ring-2 ring-primary" : ""}`}
                 onClick={() => setSelectedBook(book.id)}
               >
                 <div className="relative h-40 mb-2">
