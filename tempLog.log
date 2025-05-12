@@ -1,0 +1,25 @@
+[
+    {'name': 'fetch_url', 'description': 'Fetches a website and returns its content', 'inputSchema': {'properties': {'url': {'description': 'URL to fetch', 'title': 'Url', 'type': 'string'
+                }
+            }, 'required': ['url'
+            ], 'title': 'fetch_urlArguments', 'type': 'object'
+        }
+    },
+    {'name': 'read_s3_resource', 'description': '', 'inputSchema': {'properties': {'uri': {'description': 's3 uri to read resource', 'title': 'Uri', 'type': 'string'
+                }
+            }, 'required': ['uri'
+            ], 'title': 'read_s3_resourceArguments', 'type': 'object'
+        }
+    },
+    {'name': 'list_s3_resources', 'description': '\n        List S3 buckets and their contents as resources with pagination\n        Args:\n            start_after: Start listing after this bucket name\n        ', 'inputSchema': {'properties': {'start_after': {'anyOf': [
+                        {'type': 'string'
+                        },
+                        {'type': 'null'
+                        }
+                    ], 'description': 'start_after: Start listing after this bucket name', 'title': 'Start After'
+                }
+            }, 'required': ['start_after'
+            ], 'title': 'list_s3_resourcesArguments', 'type': 'object'
+        }
+    }
+]

@@ -24,7 +24,7 @@ def convert_tool_format(tools):
 
 
 async def main():
-    bedrock = boto3.client("bedrock-runtime")
+    bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 
     async with streamablehttp_client("http://localhost:8000/mcp") as (
         read_stream,
@@ -48,22 +48,26 @@ async def main():
             # Claude 3는 system 프롬프트도 messages 리스트의 일부로 넣는다
             messages = [
                 {
-                    "role": "system",
-                    "content": "You are a helpful AI assistant. You have access to the following tools: "
-                    + json.dumps(tools_list),
+                    "role": "assistant",  # 'system'을 'assistant'로 변경
+                    "content": [
+                        {"text": "You are a helpful AI assistant. You have access to the following tools: "}
+                    ]
+                    + [{"text": json.dumps(tools_list)}],  # tools_list를 text로 감싸기
                 },
                 {
                     "role": "user",
-                    "content": "Hello, can you help me fetch the website 'https://www.example.com?'",
+                    "content": [
+                        {"text": "Hello, can you help me to find all of the file in inha-capstone-07-jjang9-s3/norms? And Read the inner content."}
+                    ]
                 },
             ]
 
             while True:
                 response = bedrock.converse(
-                    modelId="anthropic.claude-3-sonnet-20240601-v1:0",
+                    modelId="us.anthropic.claude-3-7-sonnet-20250219-v1:0",
                     messages=messages,
                     inferenceConfig={
-                        "maxTokens": 300,
+                        "maxTokens": 500,
                         "topP": 0.1,
                         "temperature": 0.3,
                     },
