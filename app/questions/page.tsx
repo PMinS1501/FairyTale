@@ -32,17 +32,6 @@ const characters = [
   { id: 3, name: "토끼 조이", image: "/placeholder.svg?height=200&width=200" },
 ]
 
-// export default function QuestionsPage() {
-//   const router = useRouter()
-//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-//   const [recordings, setRecordings] = useState<{ [key: number]: Blob | null }>({})
-//   const [isRecording, setIsRecording] = useState(false)
-//   const [audioUrl, setAudioUrl] = useState<string | null>(null)
-//   const [selectedCharacter, setSelectedCharacter] = useState(0)
-//   const [helpDialogOpen, setHelpDialogOpen] = useState(false)
-
-//   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-//   const audioChunksRef = useRef<Blob[]>([])
 export default function QuestionsPage() {
   const router = useRouter()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -135,10 +124,6 @@ export default function QuestionsPage() {
       // FormData 생성
       const formData = new FormData()
       
-      // 캐릭터 정보 추가 필요한가?
-      //formData.append('characterId', characters[selectedCharacter].id.toString())
-      //formData.append('characterName', characters[selectedCharacter].name)
-      
       // 각 녹음 파일 추가
       Object.entries(recordings).forEach(([index, blob]) => {
         if (blob) {
@@ -146,7 +131,7 @@ export default function QuestionsPage() {
         }
       })
       
-      // API 엔드포인트로 업로드
+      // API 엔드포인트로 업로드 URL 입력
       const response = await fetch('/api/voices', {
         method: 'POST',
         body: formData,
@@ -335,129 +320,4 @@ export default function QuestionsPage() {
       </div>
     </main>
   )
-  // return (
-  //   <main className="flex min-h-screen flex-col items-center p-8">
-  //     <HomeButton />
-
-  //     <Button
-  //       variant="outline"
-  //       size="icon"
-  //       className="absolute top-4 left-16 z-10"
-  //       onClick={() => setHelpDialogOpen(true)}
-  //     >
-  //       <HelpCircle className="h-5 w-5" />
-  //     </Button>
-
-  //     <AlertDialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
-  //       <AlertDialogContent>
-  //         <AlertDialogHeader>
-  //           <AlertDialogTitle>도움말</AlertDialogTitle>
-  //           <AlertDialogDescription>
-  //             각 질문에 대해 음성으로 답변해주세요. 녹음 버튼을 누르고 답변을 말한 후 중지 버튼을 누르세요. 모든 질문에
-  //             답변하면 AI가 맞춤형 동화책을 생성합니다.
-  //           </AlertDialogDescription>
-  //         </AlertDialogHeader>
-  //         <AlertDialogFooter>
-  //           <AlertDialogAction>확인</AlertDialogAction>
-  //         </AlertDialogFooter>
-  //       </AlertDialogContent>
-  //     </AlertDialog>
-
-  //     <div className="w-full max-w-3xl mx-auto">
-  //       <div className="mb-8">
-  //         <h1 className="text-3xl font-bold mb-2">
-  //           질문 {currentQuestionIndex + 1} / {questions.length}
-  //         </h1>
-  //         <Progress value={progress} className="h-2" />
-  //       </div>
-
-  //       <div className="grid grid-cols-12 gap-4">
-  //         {/* 캐릭터를 왼쪽에 배치 (2칸) */}
-  //         <div className="col-span-2 flex flex-col items-center self-end mb-4">
-  //           <div className="mb-2 bg-white/90 p-2 rounded-lg">
-  //             <Image
-  //               src={characters[selectedCharacter].image || "/placeholder.svg"}
-  //               alt="캐릭터"
-  //               width={80}
-  //               height={80}
-  //               className="rounded-lg"
-  //             />
-  //           </div>
-  //           <Button
-  //             onClick={cycleCharacter}
-  //             variant="outline"
-  //             className="bg-white/80 text-xs py-1 px-2 h-auto w-full"
-  //             size="sm"
-  //           >
-  //             캐릭터 변경
-  //           </Button>
-  //         </div>
-
-  //         {/* 질문 카드를 오른쪽에 배치 (10칸) */}
-  //         <div className="col-span-10">
-  //           <Card className="p-6 bg-white/90 backdrop-blur-sm">
-  //             <h2 className="text-xl font-semibold mb-8 text-center">{questions[currentQuestionIndex]}</h2>
-
-  //             <div className="flex flex-col items-center gap-4">
-  //               {!isRecording && !audioUrl && (
-  //                 <Button onClick={startRecording} className="flex items-center gap-2 mx-auto">
-  //                   <Mic className="h-5 w-5" />
-  //                   녹음 시작
-  //                 </Button>
-  //               )}
-
-  //               {isRecording && (
-  //                 <Button onClick={stopRecording} variant="destructive" className="flex items-center gap-2 mx-auto">
-  //                   <Square className="h-5 w-5" />
-  //                   녹음 중지
-  //                 </Button>
-  //               )}
-
-  //               {audioUrl && (
-  //                 <div className="flex flex-col gap-2 items-center">
-  //                   <Button onClick={playRecording} variant="outline" className="flex items-center gap-2">
-  //                     <Play className="h-5 w-5" />
-  //                     녹음 재생
-  //                   </Button>
-
-  //                   <Button
-  //                     onClick={() => {
-  //                       setAudioUrl(null)
-  //                     }}
-  //                     variant="outline"
-  //                     className="flex items-center gap-2"
-  //                   >
-  //                     <Mic className="h-5 w-5" />
-  //                     다시 녹음
-  //                   </Button>
-  //                 </div>
-  //               )}
-  //             </div>
-  //           </Card>
-
-  //           <div className="flex justify-between mt-6">
-  //             <Button
-  //               onClick={handlePreviousQuestion}
-  //               disabled={currentQuestionIndex === 0}
-  //               variant="outline"
-  //               className="flex items-center gap-2 bg-white/80"
-  //             >
-  //               <ArrowLeft className="h-5 w-5" />
-  //               이전
-  //             </Button>
-
-  //             <Button
-  //               onClick={handleNextQuestion}
-  //               disabled={!recordings[currentQuestionIndex]}
-  //               className="flex items-center gap-2"
-  //             >
-  //               {currentQuestionIndex < questions.length - 1 ? "다음" : "완료"}
-  //               <ArrowRight className="h-5 w-5" />
-  //             </Button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </main>
-  // )
 }
