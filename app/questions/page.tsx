@@ -86,7 +86,7 @@ export default function QuestionsPage() {
       }
 
       mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" })
+        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/mp3" })
         const audioUrl = URL.createObjectURL(audioBlob)
         setAudioUrl(audioUrl)
         setRecordings({ ...recordings, [currentQuestionIndex]: audioBlob })
@@ -128,30 +128,44 @@ export default function QuestionsPage() {
       // 각 녹음 파일 추가
       Object.entries(recordings).forEach(([index, blob]) => {
         if (blob) {
-          formData.append(`audio_${index}`, blob, `question_${index}.wav`)
+          formData.append(`audio_${index}`, blob, `question_${index}.mp3`)
         }
       })
       
-      // API 엔드포인트로 업로드 URL 입력
-      const response = await fetch('/api/voices', {
+      // 환경 변수에서 백엔드 URL 가져오기
+      // Next.js에서는 NEXT_PUBLIC_ 접두사가 있는 환경 변수만 클라이언트에서 접근 가능
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/upload/mp3`, {
         method: 'POST',
         body: formData,
       })
       
       if (!response.ok) {
-        throw new Error('녹음 파일 업로드 실패')
+        const errorText = await response.text()
+        throw new Error(`녹음 파일 업로드 실패: ${response.status} - ${errorText}`)
       }
       
       const data = await response.json()
+      console.log('업로드 성공:', data)
       
-      // 성공 시 다음 페이지로 이동
-      router.push(`/loading?storyId=${data.storyId}`)
+      // 백엔드 응답에 따라 다음 페이지로 이동
+      // 백엔드에서 반환하는 응답 구조에 맞게 수정 필요
+      const storyId = data.id || data.storyId || 'new'
+      router.push(`/loading?storyId=${storyId}`)
     } catch (error) {
       console.error('녹음 업로드 오류:', error)
       alert('녹음 파일을 저장하는 중 오류가 발생했습니다. 다시 시도해주세요.')
     } finally {
       setIsUploading(false)
     }
+      
+      // 성공 시 다음 페이지로 이동
+    //   router.push(`/loading?storyId=${data.storyId}`)
+    // } catch (error) {
+    //   console.error('녹음 업로드 오류:', error)
+    //   alert('녹음 파일을 저장하는 중 오류가 발생했습니다. 다시 시도해주세요.')
+    // } finally {
+    //   setIsUploading(false)
+    // }
   }
 
 
