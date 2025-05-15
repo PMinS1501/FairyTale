@@ -368,9 +368,7 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog"
-useEffect(() => {
-  console.log("ENV URL:", process.env.NEXT_PUBLIC_BACKEND_URL)
-}, [])
+
 
 // 질문을 하나만 설정
 const question = "오늘 있었던 일에 대해 이야기해 줄래?"
@@ -406,7 +404,9 @@ export default function QuestionsPage() {
         isTablet: window.innerWidth >= 640 && window.innerWidth < 1024,
       })
     }
-
+    useEffect(() => {
+  console.log("ENV URL:", process.env.NEXT_PUBLIC_BACKEND_URL)
+}, [])
     // 초기 로드 시 화면 크기 감지
     handleResize()
 
