@@ -477,7 +477,7 @@ export default function QuestionsPage() {
       
       // 백엔드 서버 연결 테스트
       try {
-        const testResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/health`, {
+        const testResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/upload/mp3`, {
           method: "GET",
           headers: {
             'Content-Type': 'application/json'
