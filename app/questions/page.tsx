@@ -368,7 +368,9 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog"
-console.log("ENV URL:", process.env.NEXT_PUBLIC_BACKEND_URL)
+useEffect(() => {
+  console.log("ENV URL:", process.env.NEXT_PUBLIC_BACKEND_URL)
+}, [])
 
 // 질문을 하나만 설정
 const question = "오늘 있었던 일에 대해 이야기해 줄래?"
