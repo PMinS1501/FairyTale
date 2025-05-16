@@ -41,16 +41,15 @@ import ThemeSwitcher from "@/components/theme-switcher"
 
 export default function Home() {
   const router = useRouter()
-
-  // ✅ 환경변수로 백엔드 URL을 가져옴
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
   useEffect(() => {
+    // GET 요청 보내서 응답 확인
     fetch(`${backendUrl}`)
-      .then((res) => res.text())
+      .then((res) => res.json())
       .then((data) => {
         console.log("✅ 백엔드 응답:", data)
-        alert("서버 응답: " + data)
+        alert("서버 응답: " + data.response)  // "test" 라고 떠야 정상
       })
       .catch((err) => {
         console.error("❌ 요청 실패:", err)
