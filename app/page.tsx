@@ -45,7 +45,9 @@ export default function Home() {
   useEffect(() => {
     const fetchBackend = async () => {
       try {
-        const res = await fetch("/api/backend-check")
+        const res = await fetch("/api/proxy-upload", {
+          method: "GET",
+        })
         const text = await res.text()
         console.log("✅ 백엔드 응답:", text)
         setResponseText(text)
@@ -67,12 +69,8 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
-          <Button size="lg" className="h-16 text-lg" onClick={() => router.push("/questions")}>
-            시작하기
-          </Button>
-          <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/selection")}>
-            동화 목록
-          </Button>
+          <Button size="lg" className="h-16 text-lg" onClick={() => router.push("/questions")}>시작하기</Button>
+          <Button size="lg" variant="outline" className="h-16 text-lg" onClick={() => router.push("/selection")}>동화 목록</Button>
         </div>
 
         <div className="mt-16 w-full text-center">
