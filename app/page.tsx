@@ -46,7 +46,7 @@ export default function Home() {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
   useEffect(() => {
-    fetch(`${backendUrl}/test`)
+    fetch(`${backendUrl}/upload/mp3`)
       .then((res) => res.text())
       .then((data) => {
         console.log("✅ 백엔드 응답:", data)
