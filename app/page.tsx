@@ -45,7 +45,7 @@ export default function Home() {
   useEffect(() => {
     const fetchBackend = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}`)
+        const res = await fetch("/api/backend-check")
         const text = await res.text()
         console.log("✅ 백엔드 응답:", text)
         setResponseText(text)
