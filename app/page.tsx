@@ -43,19 +43,25 @@ export default function Home() {
   const router = useRouter()
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
-  useEffect(() => {
-    // GET 요청 보내서 응답 확인
-    fetch(`${backendUrl}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("✅ 백엔드 응답:", data)
-        alert("서버 응답: " + data.response)  // "test" 라고 떠야 정상
-      })
-      .catch((err) => {
-        console.error("❌ 요청 실패:", err)
-        alert("요청 실패! 콘솔 확인")
-      })
-  }, [backendUrl])
+useEffect(() => {
+  fetch(process.env.NEXT_PUBLIC_BACKEND_URL!)
+    .then(async (res) => {
+      const contentType = res.headers.get("content-type") || ""
+      if (contentType.includes("application/json")) {
+        const json = await res.json()
+        console.log("✅ JSON 응답:", json)
+        alert("서버 응답: " + json.response)
+      } else {
+        const text = await res.text()
+        console.warn("⚠️ JSON 아님. 원시 응답:", text)
+        alert("서버가 JSON이 아닌 응답을 보냈습니다: " + text)
+      }
+    })
+    .catch((err) => {
+      console.error("❌ 요청 실패:", err)
+      alert("요청 실패! 콘솔 확인")
+    })
+}, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 transition-colors duration-300">
