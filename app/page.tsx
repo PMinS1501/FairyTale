@@ -45,16 +45,16 @@ export default function Home() {
 
 useEffect(() => {
   fetch(process.env.NEXT_PUBLIC_BACKEND_URL!)
-    .then(async (res) => {
-      const contentType = res.headers.get("content-type") || ""
-      if (contentType.includes("application/json")) {
-        const json = await res.json()
-        console.log("✅ JSON 응답:", json)
-        alert("서버 응답: " + json.response)
-      } else {
-        const text = await res.text()
-        console.warn("⚠️ JSON 아님. 원시 응답:", text)
-        alert("서버가 JSON이 아닌 응답을 보냈습니다: " + text)
+    .then((res) => res.text())
+    .then((text) => {
+      console.log("⚠️ 원시 응답:", text)
+      try {
+        const data = JSON.parse(text)
+        console.log("✅ JSON 파싱 성공:", data)
+        alert("서버 응답: " + data.response)
+      } catch (err) {
+        console.error("❌ JSON 파싱 실패:", err)
+        alert("응답이 JSON 형식이 아닙니다.")
       }
     })
     .catch((err) => {
