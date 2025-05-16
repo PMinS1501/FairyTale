@@ -41,14 +41,12 @@ import ThemeSwitcher from "@/components/theme-switcher"
 
 export default function Home() {
   const router = useRouter()
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+  const backendUrl = "http://174.129.219.18:8000" // ← 하드코딩된 백엔드 주소
 
   useEffect(() => {
-    const url = `${backendUrl}`
+    console.log("🔍 요청 주소:", backendUrl)
 
-    console.log("🔍 요청 주소:", url)
-
-    fetch(url, {
+    fetch(backendUrl, {
       method: "GET",
     })
       .then((res) => res.text())
@@ -66,7 +64,7 @@ export default function Home() {
         console.error("❌ 요청 실패:", err)
         alert("요청 실패! 콘솔 확인")
       })
-  }, [backendUrl])
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 transition-colors duration-300">
@@ -93,6 +91,7 @@ export default function Home() {
     </main>
   )
 }
+
 
 
 // "use client"
