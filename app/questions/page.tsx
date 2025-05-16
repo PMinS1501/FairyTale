@@ -702,7 +702,6 @@
 //     </main>
 //   )
 // }
-
 "use client"
 
 import { useState, useRef, useEffect } from "react"
@@ -735,7 +734,6 @@ export default function QuestionsPage() {
   const [recording, setRecording] = useState<Blob | null>(null)
   const [isRecording, setIsRecording] = useState(false)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
-  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null)
   const [selectedCharacter, setSelectedCharacter] = useState(0)
   const [helpDialogOpen, setHelpDialogOpen] = useState(false)
   const [helpTab, setHelpTab] = useState<1 | 2>(1)
@@ -815,7 +813,6 @@ export default function QuestionsPage() {
 
       const data = await res.json()
       console.log("업로드 성공:", data.file_url)
-      setUploadedUrl(data.file_url || null)
       router.push(`/loading?storyId=uploaded`)
     } catch (error) {
       console.error("업로드 에러:", error)
@@ -885,11 +882,6 @@ export default function QuestionsPage() {
             {isUploading ? (<><Loader2 className="h-4 w-4 animate-spin" />저장 중...</>) : (<>완료<ArrowRight className="h-4 w-4" /></>)}
           </Button>
         </div>
-        {uploadedUrl && (
-          <div className="mt-6 text-center text-sm text-gray-700">
-            ✅ 업로드된 파일 URL: <a href={uploadedUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{uploadedUrl}</a>
-          </div>
-        )}
       </div>
     </main>
   )
