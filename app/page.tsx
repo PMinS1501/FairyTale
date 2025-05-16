@@ -43,25 +43,30 @@ export default function Home() {
   const router = useRouter()
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
-useEffect(() => {
-  fetch(process.env.NEXT_PUBLIC_BACKEND_URL!)
-    .then((res) => res.text())
-    .then((text) => {
-      console.log("⚠️ 원시 응답:", text)
-      try {
-        const data = JSON.parse(text)
-        console.log("✅ JSON 파싱 성공:", data)
-        alert("서버 응답: " + data.response)
-      } catch (err) {
-        console.error("❌ JSON 파싱 실패:", err)
-        alert("응답이 JSON 형식이 아닙니다.")
-      }
+  useEffect(() => {
+    const url = `${backendUrl}`
+
+    console.log("🔍 요청 주소:", url)
+
+    fetch(url, {
+      method: "GET",
     })
-    .catch((err) => {
-      console.error("❌ 요청 실패:", err)
-      alert("요청 실패! 콘솔 확인")
-    })
-}, [])
+      .then((res) => res.text())
+      .then((text) => {
+        try {
+          const data = JSON.parse(text)
+          console.log("✅ JSON 파싱 성공:", data)
+          alert("서버 응답: " + data.response)
+        } catch (err) {
+          console.warn("⚠️ JSON 파싱 실패. 원시 텍스트:", text)
+          alert("서버 응답 (텍스트): " + text)
+        }
+      })
+      .catch((err) => {
+        console.error("❌ 요청 실패:", err)
+        alert("요청 실패! 콘솔 확인")
+      })
+  }, [backendUrl])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 transition-colors duration-300">
@@ -88,6 +93,7 @@ useEffect(() => {
     </main>
   )
 }
+
 
 // "use client"
 
