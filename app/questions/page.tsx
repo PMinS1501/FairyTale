@@ -731,6 +731,8 @@ const characters = [
 
 export default function QuestionsPage() {
   const router = useRouter()
+  const [status, setStatus] = useState("대기 중")
+
   const [recording, setRecording] = useState<Blob | null>(null)
   const [isRecording, setIsRecording] = useState(false)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
@@ -739,7 +741,7 @@ export default function QuestionsPage() {
   const [helpTab, setHelpTab] = useState<1 | 2>(1)
   const [isUploading, setIsUploading] = useState(false)
   const [screenSize, setScreenSize] = useState({ isMobile: false, isTablet: false })
-const [s3Url, setS3Url] = useState<string | null>(null)
+  const [s3Url, setS3Url] = useState<string | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
 
@@ -811,6 +813,7 @@ const [s3Url, setS3Url] = useState<string | null>(null)
       }
 
       const data = await res.json()
+      setStatus(`✅ 업로드 성공! S3 URL: ${data.file_url}`)
       setS3Url(data.file_url)
       console.log("업로드 성공:", data.file_url)
       //router.push(`/loading?storyId=uploaded`)
