@@ -739,7 +739,7 @@ export default function QuestionsPage() {
   const [helpTab, setHelpTab] = useState<1 | 2>(1)
   const [isUploading, setIsUploading] = useState(false)
   const [screenSize, setScreenSize] = useState({ isMobile: false, isTablet: false })
-
+const [s3Url, setS3Url] = useState<string | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
 
@@ -800,7 +800,6 @@ export default function QuestionsPage() {
 
       const formData = new FormData()
       formData.append("file", recording, "question.mp3")
-
       const res = await fetch("/api/proxy-upload", {
         method: "POST",
         body: formData,
@@ -812,8 +811,9 @@ export default function QuestionsPage() {
       }
 
       const data = await res.json()
+      setS3Url(data.file_url)
       console.log("업로드 성공:", data.file_url)
-      router.push(`/loading?storyId=uploaded`)
+      //router.push(`/loading?storyId=uploaded`)
     } catch (error) {
       console.error("업로드 에러:", error)
       alert(error instanceof Error ? error.message : "오류가 발생했습니다.")
