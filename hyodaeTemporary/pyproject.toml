@@ -26,6 +26,7 @@ dependencies = [
     "urllib3==2.4.0",
     "uvicorn==0.34.2",
     "httpx==0.28.1",
+    "requests==2.32.3",
 
     # AWS
     "boto3==1.37.2",

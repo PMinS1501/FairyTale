@@ -48,18 +48,18 @@ class S3Resource:
         see env.example ############
         """
         # Try comma-separated list first
-        bucket_list = os.getenv('S3_BUCKETS')
-        if bucket_list:
-            return [b.strip() for b in bucket_list.split(',')]
+        # bucket_list = 
+        # if bucket_list:
+        #     return [b.strip() for b in bucket_list.split(',')]
 
-        buckets = []
-        i = 1
-        while True:
-            bucket = os.getenv(f'S3_BUCKET_{i}')
-            if not bucket:
-                break
-            buckets.append(bucket.strip())
-            i += 1
+        buckets = ["inha-capstone-07-jjang9-s3"]
+        # i = 1
+        # while True:
+        #     bucket = os.getenv(f'S3_BUCKET_{i}')
+        #     if not bucket:
+        #         break
+        #     buckets.append(bucket.strip())
+        #     i += 1
 
         return buckets
 

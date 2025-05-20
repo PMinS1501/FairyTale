@@ -1,0 +1,61 @@
+INFO:     Will watch for changes in these directories: ['/home/ubuntu/backend-working-directory/FairyTale']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [3610] using StatReload
+INFO:     Started server process [3619]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  Invalid HTTP request received.
+INFO:     45.79.102.191:41458 - "GET / HTTP/1.0" 200 OK
+INFO:     45.79.102.191:57640 - "GET /nice%20ports%2C/Trinity.txt.bak HTTP/1.0" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     45.79.102.191:57670 - "OPTIONS / HTTP/1.0" 405 Method Not Allowed
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     45.79.102.191:52724 - "GET / HTTP/1.1" 200 OK
+INFO:     45.79.102.191:52736 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     45.79.102.191:35768 - "GET / HTTP/1.1" 200 OK
+INFO:     152.53.248.175:53002 - "CONNECT www.google.com%3A443 HTTP/1.1" 404 Not Found
+INFO:     167.94.138.173:54418 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.138.173:54434 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     167.94.138.173:54464 - "PRI %2A HTTP/2.0" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.138.173:39670 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     198.235.24.55:58734 - "GET / HTTP/1.1" 200 OK
+INFO:     152.53.248.175:40238 - "CONNECT www.google.com%3A443 HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     204.188.197.80:37086 - "GET / HTTP/1.1" 200 OK
+INFO:     204.188.197.80:37096 - "GET /login HTTP/1.1" 404 Not Found
+INFO:     47.251.91.236:36162 - "GET / HTTP/1.1" 200 OK
+INFO:     123.160.223.72:25218 - "GET / HTTP/1.1" 200 OK
+INFO:     123.160.223.75:6207 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     79.127.221.66:36184 - "GET / HTTP/1.1" 200 OK
+INFO:     123.160.223.72:27588 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     204.188.197.159:60682 - "GET / HTTP/1.1" 200 OK
+INFO:     204.188.197.159:60692 - "GET /login HTTP/1.1" 404 Not Found
+INFO:     45.156.129.131:41151 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.44.222:59708 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.44.222:59708 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     165.246.44.222:59709 - "GET /audio/mp3 HTTP/1.1" 404 Not Found
+INFO:     165.246.44.222:59738 - "POST /upload/mp3 HTTP/1.1" 422 Unprocessable Entity
+INFO:     165.246.44.222:61047 - "POST /upload/mp3 HTTP/1.1" 422 Unprocessable Entity
+INFO:     165.246.44.222:61119 - "POST /upload/mp3 HTTP/1.1" 422 Unprocessable Entity
+INFO:     165.246.44.222:61148 - "GET /upload/mp3 HTTP/1.1" 405 Method Not Allowed
+INFO:     165.246.44.222:61148 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     165.246.44.222:61752 - "POST /upload/mp3 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3619]
+INFO:     Stopping reloader process [3610]

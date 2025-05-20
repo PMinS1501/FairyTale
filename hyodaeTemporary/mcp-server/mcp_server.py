@@ -4,9 +4,10 @@ import logging
 import os
 import boto3
 import asyncio
+import base64
 from pydantic import Field
 from resources.s3_resource import S3Resource
-from typing import List, Optional, Dict
+from typing import List, Optional
 
 from mcp.server.fastmcp import FastMCP
 from mcp.types import Resource
@@ -21,7 +22,7 @@ max_buckets = int(os.getenv('S3_MAX_BUCKETS', '5'))
 
 # Initialize S3 resource
 s3_resource = S3Resource(
-    region_name=os.getenv('AWS_REGION', 'us-east-1'),
+    region_name="us-east-1",
     max_buckets=max_buckets
 )
 
@@ -48,7 +49,7 @@ def read_resource_from_s3_tool(mcp):
     ) -> str:
         # 이렇게 """ 으로 감싸진 description이 무조건 필요함
         """
-        Read content from an S3 resource and return structured response
+        Read or get content from an S3 resource and return structured response
 
         Returns:
             Dict containing 'contents' list with uri, mimeType, and text for each resource
@@ -72,7 +73,6 @@ def read_resource_from_s3_tool(mcp):
         key = parts[1]
 
         logger.debug(f"Attempting to read - Bucket: {bucket_name}, Key: {key}")
-        
 
         try:
             response = await s3_resource.get_object(bucket_name, key)
@@ -220,7 +220,6 @@ if __name__ == "__main__":
         mcp = FastMCP("Echo", port=args.port)
         
         # Register the tool
-        create_fetch_url_tool(mcp)
         read_resource_from_s3_tool(mcp)
         list_resources_from_s3_tool(mcp)
     

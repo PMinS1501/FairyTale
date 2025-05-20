@@ -64,4 +64,6 @@ pip3 install -r requirements.txt
 # -------------------------------
 
 echo "[🚀] FastAPI 서버 시작 중..."
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+#uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+nohup uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
+
