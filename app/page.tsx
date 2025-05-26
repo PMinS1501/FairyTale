@@ -109,18 +109,27 @@ export default function Home() {
         <div className="mt-16 w-full text-center">
           <h2 className="text-xl font-semibold mb-4">테마 선택</h2>
           <ThemeSwitcher />
+        </div>
 
-          {/* 직접 링크 접근 */}
-          <p className="mt-6 text-gray-500">
+        <div className="mt-16 w-full text-center">
+          <h2 className="text-xl font-semibold mb-4">동화 JSON 미리보기</h2>
+          <object
+            data="https://inha-capstone-07-jjang9-s3.s3.us-east-1.amazonaws.com/fairy_tale_url/fairy_tale_url_test1.json"
+            type="application/json"
+            width="100%"
+            height="300px"
+            style={{ border: "1px solid #ccc", borderRadius: "8px" }}
+          >
+            JSON 파일을 불러올 수 없습니다.{" "}
             <a
               href="https://inha-capstone-07-jjang9-s3.s3.us-east-1.amazonaws.com/fairy_tale_url/fairy_tale_url_test1.json"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 underline"
             >
-              동화 JSON 직접 보기
+              직접 보기
             </a>
-          </p>
+          </object>
         </div>
       </div>
     </main>
