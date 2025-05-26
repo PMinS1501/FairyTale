@@ -86,12 +86,32 @@
 
 "use client"
 
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import ThemeSwitcher from "@/components/theme-switcher"
 
 export default function Home() {
   const router = useRouter()
+  const [data, setData] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchJson = async () => {
+      try {
+        const res = await fetch("https://inha-capstone-07-jjang9-s3.s3.us-east-1.amazonaws.com/fairy_tale_url/fairy_tale_url_test1.json")
+        if (!res.ok) throw new Error("응답 실패")
+        const json = await res.json()
+        console.log("✅ JSON 내용:", json)
+        setData(json)
+      } catch (err: any) {
+        console.error("❌ 오류:", err)
+        setError("JSON 불러오기 실패")
+      }
+    }
+
+    fetchJson()
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 transition-colors duration-300">
@@ -111,25 +131,15 @@ export default function Home() {
           <ThemeSwitcher />
         </div>
 
-        <div className="mt-16 w-full text-center">
-          <h2 className="text-xl font-semibold mb-4">동화 JSON 미리보기</h2>
-          <object
-            data="https://inha-capstone-07-jjang9-s3.s3.us-east-1.amazonaws.com/fairy_tale_url/fairy_tale_url_test1.json"
-            type="application/json"
-            width="100%"
-            height="300px"
-            style={{ border: "1px solid #ccc", borderRadius: "8px" }}
-          >
-            JSON 파일을 불러올 수 없습니다.{" "}
-            <a
-              href="https://inha-capstone-07-jjang9-s3.s3.us-east-1.amazonaws.com/fairy_tale_url/fairy_tale_url_test1.json"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 underline"
-            >
-              직접 보기
-            </a>
-          </object>
+        <div className="mt-16 w-full text-left">
+          <h2 className="text-xl font-semibold mb-2 text-center">동화 JSON 내용</h2>
+          {error && <p className="text-red-500">{error}</p>}
+          {!data && !error && <p className="text-gray-500">불러오는 중...</p>}
+          {data && (
+            <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto max-h-[400px]">
+              {JSON.stringify(data, null, 2)}
+            </pre>
+          )}
         </div>
       </div>
     </main>
