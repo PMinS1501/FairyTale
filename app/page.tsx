@@ -45,7 +45,7 @@ export default function Home() {
   useEffect(() => {
     const fetchBackend = async () => {
       try {
-        const res = await fetch("/api/proxy-upload", {
+        const res = await fetch("https://inha-capstone-07-jjang9-s3.s3.us-east-1.amazonaws.com/fairy_tale_url/fairy_tale_url_test1.json", {
           method: "GET",
         })
         const text = await res.text()
