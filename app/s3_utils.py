@@ -63,3 +63,49 @@ def get_file_url_from_s3(filename: str) -> Optional[str]:
     except NoCredentialsError:
         return "Credentials not available"
 
+
+import boto3
+import json
+from botocore.exceptions import NoCredentialsError
+
+
+def get_fairy_tale_list_from_s3():
+    """
+    S3에서 파일 URL을 조회합니다.
+    db 디렉토리에 접근하여 모든 데이터를 조회합니다.
+    각각의 객체 형식은 아래와 같습니다.
+    {
+        "id": "1",
+        "title": "title_test",
+        "running_time": "780",
+        "created_at": "2024-05-26T14:30:00Z",
+        "thumbnail_url": "thumbnail_url_test",
+        "fairy_tale_url": "fairy_tale_url_test"
+    }
+    n개의 객체를 list 형식으로 묶어 반환해야 합니다.
+    """
+    bucket_name = 'inha-capstone-07-jjang9-s3'
+    prefix = 'db/'
+
+    try:
+        response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+
+        fairy_tale_list = []
+
+        if 'Contents' in response:
+            for obj in response['Contents']:
+                key = obj['Key']
+                if key.endswith('.json'):  # JSON 파일만 처리
+                    file_obj = s3.get_object(Bucket=bucket_name, Key=key)
+                    file_content = file_obj['Body'].read().decode('utf-8')
+                    fairy_data = json.loads(file_content)
+                    fairy_tale_list.append(fairy_data)
+
+        return fairy_tale_list
+
+    except NoCredentialsError:
+        return "Credentials not available"
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+

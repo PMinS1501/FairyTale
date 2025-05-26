@@ -1,61 +1,833 @@
 INFO:     Will watch for changes in these directories: ['/home/ubuntu/backend-working-directory/FairyTale']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [3610] using StatReload
+INFO:     Started reloader process [1966] using StatReload
+INFO:     Started server process [1969]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     165.246.243.160:60162 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60162 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60162 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60162 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60162 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60495 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60495 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60495 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60501 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60495 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60515 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60515 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60515 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60515 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60539 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:60539 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     152.53.248.175:39376 - "CONNECT www.google.com%3A443 HTTP/1.1" 404 Not Found
+INFO:     165.246.243.160:61221 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61248 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61248 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61248 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61248 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61477 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61477 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61504 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61504 - "GET / HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61504 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61504 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61504 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61504 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61626 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61626 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61678 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61678 - "GET /fairy-tale HTTP/1.1" 200 OK
+INFO:     165.246.243.160:61678 - "GET /fairy-tale HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1969]
+INFO:     Started server process [2171]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2171]
+INFO:     Started server process [2176]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2176]
+INFO:     Started server process [2278]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2278]
+INFO:     Started server process [2287]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2287]
+INFO:     Started server process [2292]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2292]
+INFO:     Started server process [2298]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2298]
+INFO:     Started server process [2303]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2303]
+INFO:     Started server process [2304]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2304]
+INFO:     Started server process [2309]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2309]
+INFO:     Started server process [2315]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2315]
+INFO:     Started server process [2325]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2325]
+INFO:     Started server process [2331]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2331]
+INFO:     Started server process [2335]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2335]
+INFO:     Started server process [2340]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2340]
+INFO:     Started server process [2345]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2345]
+INFO:     Started server process [2350]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2350]
+INFO:     Started server process [2355]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2355]
+INFO:     Started server process [2356]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2356]
+INFO:     Started server process [2361]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2361]
+INFO:     Started server process [2367]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2367]
+INFO:     Started server process [2372]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2372]
+INFO:     Started server process [2377]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2377]
+INFO:     Started server process [2382]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2382]
+INFO:     Started server process [2387]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2387]
+INFO:     Started server process [2388]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2388]
+INFO:     Started server process [2393]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2393]
+INFO:     Started server process [2398]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2398]
+INFO:     Started server process [2421]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2421]
+INFO:     Started server process [2627]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2627]
+INFO:     Started server process [2632]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2632]
+INFO:     Started server process [2638]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2638]
+INFO:     Started server process [2661]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2661]
+INFO:     Started server process [2689]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2689]
+INFO:     Started server process [2690]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/mcp_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2690]
+INFO:     Started server process [2695]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2695]
+INFO:     Started server process [2703]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2703]
+INFO:     Started server process [2785]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2785]
+INFO:     Started server process [2790]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2790]
+INFO:     Started server process [2795]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2795]
+INFO:     Started server process [2842]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2842]
+INFO:     Started server process [2847]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2847]
+INFO:     Started server process [2852]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2852]
+INFO:     Started server process [2857]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2857]
+INFO:     Started server process [2866]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2866]
+INFO:     Started server process [2869]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2869]
+INFO:     Started server process [2874]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2874]
+INFO:     Started server process [2910]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2910]
+INFO:     Started server process [2916]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2916]
+INFO:     Started server process [2921]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2921]
+INFO:     Started server process [2926]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2926]
+INFO:     Started server process [2931]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2931]
+INFO:     Started server process [2936]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2936]
+INFO:     Started server process [2941]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2941]
+INFO:     Started server process [2947]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2947]
+INFO:     Started server process [2952]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2952]
+INFO:     Started server process [3218]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3218]
+INFO:     Started server process [3279]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3279]
+INFO:     Started server process [3284]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3284]
+INFO:     Started server process [3289]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3289]
+INFO:     Started server process [3294]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3294]
+INFO:     Started server process [3299]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3299]
+INFO:     Started server process [3305]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3305]
+INFO:     Started server process [3310]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3310]
+INFO:     Started server process [3397]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3397]
+INFO:     Started server process [3402]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3402]
+INFO:     Started server process [3407]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3407]
+INFO:     Started server process [3408]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3408]
+INFO:     Started server process [3409]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3409]
+INFO:     Started server process [3414]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3414]
+INFO:     Started server process [3419]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3419]
+INFO:     Started server process [3424]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3424]
+INFO:     Started server process [3500]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3500]
+INFO:     Started server process [3505]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3505]
+INFO:     Started server process [3510]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3510]
+INFO:     Started server process [3515]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3515]
+INFO:     Started server process [3585]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3585]
+INFO:     Started server process [3590]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3590]
+INFO:     Started server process [3595]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3595]
+INFO:     Started server process [3614]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3614]
 INFO:     Started server process [3619]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-WARNING:  Invalid HTTP request received.
-INFO:     45.79.102.191:41458 - "GET / HTTP/1.0" 200 OK
-INFO:     45.79.102.191:57640 - "GET /nice%20ports%2C/Trinity.txt.bak HTTP/1.0" 404 Not Found
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-INFO:     45.79.102.191:57670 - "OPTIONS / HTTP/1.0" 405 Method Not Allowed
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-INFO:     45.79.102.191:52724 - "GET / HTTP/1.1" 200 OK
-INFO:     45.79.102.191:52736 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-WARNING:  Invalid HTTP request received.
-INFO:     45.79.102.191:35768 - "GET / HTTP/1.1" 200 OK
-INFO:     152.53.248.175:53002 - "CONNECT www.google.com%3A443 HTTP/1.1" 404 Not Found
-INFO:     167.94.138.173:54418 - "GET / HTTP/1.1" 200 OK
-INFO:     167.94.138.173:54434 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     167.94.138.173:54464 - "PRI %2A HTTP/2.0" 404 Not Found
-WARNING:  Invalid HTTP request received.
-INFO:     167.94.138.173:39670 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-WARNING:  Invalid HTTP request received.
-INFO:     198.235.24.55:58734 - "GET / HTTP/1.1" 200 OK
-INFO:     152.53.248.175:40238 - "CONNECT www.google.com%3A443 HTTP/1.1" 404 Not Found
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-INFO:     204.188.197.80:37086 - "GET / HTTP/1.1" 200 OK
-INFO:     204.188.197.80:37096 - "GET /login HTTP/1.1" 404 Not Found
-INFO:     47.251.91.236:36162 - "GET / HTTP/1.1" 200 OK
-INFO:     123.160.223.72:25218 - "GET / HTTP/1.1" 200 OK
-INFO:     123.160.223.75:6207 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     79.127.221.66:36184 - "GET / HTTP/1.1" 200 OK
-INFO:     123.160.223.72:27588 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-WARNING:  Invalid HTTP request received.
-WARNING:  Invalid HTTP request received.
-INFO:     204.188.197.159:60682 - "GET / HTTP/1.1" 200 OK
-INFO:     204.188.197.159:60692 - "GET /login HTTP/1.1" 404 Not Found
-INFO:     45.156.129.131:41151 - "GET / HTTP/1.1" 200 OK
-INFO:     165.246.44.222:59708 - "GET / HTTP/1.1" 200 OK
-INFO:     165.246.44.222:59708 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     165.246.44.222:59709 - "GET /audio/mp3 HTTP/1.1" 404 Not Found
-INFO:     165.246.44.222:59738 - "POST /upload/mp3 HTTP/1.1" 422 Unprocessable Entity
-INFO:     165.246.44.222:61047 - "POST /upload/mp3 HTTP/1.1" 422 Unprocessable Entity
-INFO:     165.246.44.222:61119 - "POST /upload/mp3 HTTP/1.1" 422 Unprocessable Entity
-INFO:     165.246.44.222:61148 - "GET /upload/mp3 HTTP/1.1" 405 Method Not Allowed
-INFO:     165.246.44.222:61148 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     165.246.44.222:61752 - "POST /upload/mp3 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
 INFO:     Finished server process [3619]
-INFO:     Stopping reloader process [3610]
+INFO:     Started server process [3624]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3624]
+INFO:     Started server process [3625]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3625]
+INFO:     Started server process [3626]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3626]
+INFO:     Started server process [3631]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3631]
+INFO:     Started server process [3636]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3636]
+INFO:     Started server process [3641]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3641]
+INFO:     Started server process [3685]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3685]
+INFO:     Started server process [3696]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3696]
+INFO:     Started server process [3701]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3701]
+INFO:     Started server process [3712]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3712]
+INFO:     Started server process [3760]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3760]
+INFO:     Started server process [3785]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3785]
+INFO:     Started server process [3791]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3791]
+INFO:     Started server process [3792]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3792]
+INFO:     Started server process [3817]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3817]
+INFO:     Started server process [3822]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3822]
+INFO:     Started server process [3827]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3827]
+INFO:     Started server process [3832]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'hyodaeTemporary/mcp-server/utility/image_generation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3832]
+INFO:     Started server process [3837]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

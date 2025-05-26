@@ -1,6 +1,6 @@
 # main.py
 from fastapi import FastAPI, File, UploadFile
-from .s3_utils import upload_file_to_s3, get_file_url_from_s3, upload_mp3_file_to_s3
+from .s3_utils import upload_file_to_s3, get_file_url_from_s3, upload_mp3_file_to_s3, get_fairy_tale_list_from_s3
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -50,3 +50,8 @@ async def get_file_url(filename: str):
     """
     file_url = get_file_url_from_s3(filename)
     return {"file_url": file_url}
+
+#todo 동화 목록 조회
+@app.get("/fairy-tale")
+async def get_fairy_tale_list():
+    return get_fairy_tale_list_from_s3()
