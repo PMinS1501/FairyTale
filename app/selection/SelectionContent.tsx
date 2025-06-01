@@ -331,7 +331,7 @@ const handleBookOpened = () => {
           onAnimationComplete={handleBookOpened}
         >
           <div className="w-[300px] h-[400px] bg-white rounded-xl shadow-2xl overflow-hidden">
-            <Image src="/imsi.png" alt="책" width={300} height={400} className="object-cover" />
+            <Image src="/jjangu2.jpeg" alt="비행기" width={300} height={400} className="object-cover" />
           </div>
         </motion.div>
       )}

@@ -1,12 +1,13 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
 import { Mic, Square, ArrowRight, HelpCircle, Loader2 } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import HelpDialog from "@/components/HelpDialog"
+import { useTheme } from "next-themes"
 
 const questions = [
   "오늘 있었던 일 중에 가장 기억에 남는 일이 뭐야?",
@@ -16,13 +17,12 @@ const questions = [
   "그 일이 있고 나서 너는 어떤 생각이 들었어?",
 ]
 
-// 말풍선 카드 컴포넌트 - 꼬리가 아래쪽을 향하도록 수정
+// 말풍선 카드 컴포넌트
 const SpeechBubbleCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
   return (
     <div className={`relative ${className}`}>
       <Card className="relative bg-white border-2 border-white shadow-lg p-8 rounded-3xl">
         {children}
-        {/* 말풍선 꼬리 - 아래쪽을 향하도록 수정 */}
         <div className="absolute -bottom-6 left-16 w-0 h-0 border-l-[30px] border-l-transparent border-r-[30px] border-r-transparent border-t-[30px] border-t-white"></div>
       </Card>
     </div>
@@ -30,15 +30,20 @@ const SpeechBubbleCard = ({ children, className = "" }: { children: React.ReactN
 }
 
 // 캐릭터 컴포넌트
+import { motion } from "framer-motion"
+
 const Character = () => {
+  const { theme } = useTheme()
+  const imageSrc = theme === "sky" ? "/jjangu2.jpeg" : "/jjangu.jpeg"
+
   return (
-    <div className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center shadow-lg border-4 border-white overflow-hidden">
-      <img
-        src="/jjangu.jpeg" // ✅ 경로 수정
-        alt="짱구"
-        className="w-full h-full object-cover"
-      />
-    </div>
+    <motion.div
+      animate={{ y: [0, -10, 0] }}
+      transition={{ repeat: Infinity, duration: 2 }}
+      className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center shadow-lg border-4 border-white overflow-hidden"
+    >
+      <img src={imageSrc} alt="짱구" className="w-full h-full object-cover" />
+    </motion.div>
   )
 }
 
@@ -146,9 +151,7 @@ export default function QuestionsPage() {
           질문 {currentIndex + 1} / {questions.length}
         </h1>
 
-        {/* 말풍선과 캐릭터 영역 - 새로운 레이아웃 */}
         <div className="mb-8">
-          {/* 말풍선 (위쪽) - 중앙 정렬 */}
           <div className="flex justify-center mb-6">
             <SpeechBubbleCard className="w-full max-w-4xl">
               <p className="text-xl font-medium text-gray-800 leading-relaxed text-center py-4">
@@ -156,8 +159,7 @@ export default function QuestionsPage() {
               </p>
             </SpeechBubbleCard>
           </div>
-          
-          {/* 캐릭터만 왼쪽에 배치 */}
+
           <div className="flex justify-start px-8 mb-6">
             <div className="flex-shrink-0">
               <Character />
@@ -165,7 +167,6 @@ export default function QuestionsPage() {
           </div>
         </div>
 
-        {/* 녹음 컨트롤 - 완전히 중앙에 배치 */}
         <div className="flex flex-col items-center gap-4 mb-8">
           {!isRecording && !audioUrls[currentIndex] && (
             <Button onClick={startRecording} className="flex items-center gap-2 px-6 py-3 text-lg">
@@ -201,7 +202,6 @@ export default function QuestionsPage() {
           )}
         </div>
 
-        {/* 네비게이션 버튼 */}
         <div className="flex justify-between mt-8">
           <Button
             onClick={() => setCurrentIndex((i) => Math.max(i - 1, 0))}
@@ -222,7 +222,6 @@ export default function QuestionsPage() {
           )}
         </div>
 
-        {/* 동화 만들기 버튼 */}
         {currentIndex === questions.length - 1 &&
           Object.keys(recordings).length === questions.length && (
             <div className="flex justify-center mt-12">
