@@ -15,7 +15,6 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
     setMounted(true)
   }, [])
 
-  // theme 변경될 때마다 반영
   useEffect(() => {
     if (theme) {
       setCurrentTheme(theme)
@@ -25,16 +24,16 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
   if (!mounted || !currentTheme) return <>{children}</>
 
   const isHomePage = pathname === "/"
-
   let backgroundContent = null
-  if (["alley", "sky", "ocean"].includes(currentTheme)) {
+
+  if (["alley", "sky"].includes(currentTheme)) {
     backgroundContent = isHomePage ? (
       <video
         autoPlay
         muted
         loop
         playsInline
-        key={currentTheme} // 💡 theme 변경 시 video 다시 로드되도록
+        key={currentTheme}
         style={{
           position: "fixed",
           top: 0,
@@ -57,87 +56,12 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
           left: 0,
           width: "100%",
           height: "100%",
-          background: `url('/${currentTheme}.png') center/cover no-repeat fixed`,
-          zIndex: -1,
-        }}
-      />
-    )
-  } else if (["rabbit", "dog"].includes(currentTheme)) {
-    backgroundContent = (
-      <div
-        key={currentTheme}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "300%",
-          height: "300%",
-          background: `url('/${currentTheme}.png') repeat`,
-          backgroundSize: "300px 300px",
-          backgroundAttachment: "fixed",
+          background: `url('/${currentTheme}.${currentTheme === "sky" ? "jpg" : "png"}') center/cover no-repeat fixed`,
           zIndex: -1,
         }}
       />
     )
   }
-  // if (theme === "space" || theme === "sky" || theme === "ocean") {
-  //   if (isHomePage) {
-  //     // 홈에서는 mp4 비디오 재생
-  //     backgroundContent = (
-  //       <video
-  //         autoPlay
-  //         muted
-  //         loop
-  //         playsInline
-  //         style={{
-  //           position: "fixed",
-  //           top: 0,
-  //           left: 0,
-  //           width: "100%",
-  //           height: "100%",
-  //           objectFit: "cover",
-  //           zIndex: -1,
-  //         }}
-  //       >
-  //         <source src={`/${theme}.mp4`} type="video/mp4" />
-  //         {/* 브라우저가 mp4를 지원하지 않으면 대체 텍스트 */}
-  //         Your browser does not support the video tag.
-  //       </video>
-  //     )
-  //   } else {
-  //     // 다른 페이지는 jpg 이미지
-  //     backgroundContent = (
-  //       <div
-  //         style={{
-  //           position: "fixed",
-  //           top: 0,
-  //           left: 0,
-  //           width: "100%",
-  //           height: "100%",
-  //           background: `url('/${theme}.jpg') center/cover no-repeat fixed`,
-  //           zIndex: -1,
-  //         }}
-  //       />
-  //     )
-  //   }
-  // } else if (theme === "rabbit" || theme === "dog") {
-  //   // 항상 반복 패턴
-  //   backgroundContent = (
-  //     <div
-  //       style={{
-  //         position: "fixed",
-  //         top: 0,
-  //         left: 0,
-  //         width: "300%",
-  //         height: "300%",
-  //         background: `url('/${theme}.png') repeat`,
-  //         backgroundSize: "300px 300px", // 패턴 크기 조정
-  //         backgroundAttachment: "fixed", // 스크롤해도 고정
-  //         zIndex: -1,
-  //       }}
-  //     />
-  //   )
-  // }
 
   return (
     <>

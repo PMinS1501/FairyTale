@@ -20,8 +20,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head />
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="alley" enableSystem={false} storageKey="storybook-theme">
+        <ThemeProvider
+          attribute="class"
+          value={{
+            light: "light",
+            dark: "dark",
+            alley: "alley",
+            sky: "sky",
+          }}
+          defaultTheme="alley"
+          enableSystem={false}
+          storageKey="storybook-theme"
+        >
           <ThemeBackground>{children}</ThemeBackground>
         </ThemeProvider>
       </body>

@@ -7,6 +7,7 @@ import Image from "next/image"
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import { useSearchParams } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function StoryPageClient() {
   const searchParams = useSearchParams()
@@ -18,6 +19,7 @@ export default function StoryPageClient() {
   const [currentPage, setCurrentPage] = useState(0)
   const [subtitles, setSubtitles] = useState<string[]>([])
   const [isPlaying, setIsPlaying] = useState(false)
+  const [progress, setProgress] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
@@ -50,6 +52,12 @@ export default function StoryPageClient() {
     const audio = audioRef.current
     if (!audio) return
 
+    const updateProgress = () => {
+      if (audio.duration) {
+        setProgress((audio.currentTime / audio.duration) * 100)
+      }
+    }
+
     if (isPlaying) audio.play()
     else audio.pause()
 
@@ -62,8 +70,12 @@ export default function StoryPageClient() {
       }
     }
 
+    audio.addEventListener("timeupdate", updateProgress)
     audio.addEventListener("ended", handleEnded)
-    return () => audio.removeEventListener("ended", handleEnded)
+    return () => {
+      audio.removeEventListener("timeupdate", updateProgress)
+      audio.removeEventListener("ended", handleEnded)
+    }
   }, [isPlaying, currentPage, pages])
 
   const togglePlay = () => setIsPlaying((prev) => !prev)
@@ -83,18 +95,37 @@ export default function StoryPageClient() {
     <main className="p-6 flex flex-col items-center">
       <HomeButton />
       <div className="max-w-3xl w-full bg-white/90 p-6 rounded-lg shadow-md transition-transform duration-700">
-        <Image
-          src={page.image_url}
-          alt={`페이지 ${currentPage + 1}`}
-          width={600}
-          height={300}
-          className="mx-auto mb-4 rounded"
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentPage}
+            initial={{ transform: "rotateY(90deg)", transformOrigin: "right", opacity: 0 }}
+            animate={{ transform: "rotateY(0deg)", opacity: 1 }}
+            exit={{ transform: "rotateY(-90deg)", transformOrigin: "left", opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative w-full h-auto"
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            <Image
+              src={page.image_url}
+              alt={`페이지 ${currentPage + 1}`}
+              width={600}
+              height={300}
+              className="mx-auto mb-4 rounded shadow-lg"
+            />
+          </motion.div>
+        </AnimatePresence>
 
         <p className="text-lg text-center mb-4">{subtitleText}</p>
         <audio ref={audioRef} src={page.voice_url} preload="auto" />
 
-        <div className="flex justify-center gap-4 mt-6">
+        <div className="w-full h-2 bg-gray-300 rounded-full overflow-hidden mb-4">
+          <div
+            className="h-full bg-blue-500 transition-all"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+
+        <div className="flex justify-center gap-4">
           <Button onClick={() => goToPage(currentPage - 1)} variant="outline" size="icon">
             <ChevronLeft className="w-5 h-5" />
           </Button>
@@ -105,10 +136,10 @@ export default function StoryPageClient() {
             <ChevronRight className="w-5 h-5" />
           </Button>
         </div>
+      </div>
 
-        <div className="mt-4 text-center text-muted-foreground">
-          페이지 {currentPage + 1} / {pages.length}
-        </div>
+      <div className="mt-4 text-center text-muted-foreground">
+        페이지 {currentPage + 1} / {pages.length}
       </div>
     </main>
   )
