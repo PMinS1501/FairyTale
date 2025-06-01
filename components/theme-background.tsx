@@ -27,7 +27,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
   const isHomePage = pathname === "/"
 
   let backgroundContent = null
-  if (["space", "sky", "ocean"].includes(currentTheme)) {
+  if (["alley", "sky", "ocean"].includes(currentTheme)) {
     backgroundContent = isHomePage ? (
       <video
         autoPlay
@@ -57,7 +57,7 @@ export default function ThemeBackground({ children }: { children: React.ReactNod
           left: 0,
           width: "100%",
           height: "100%",
-          background: `url('/${currentTheme}.jpg') center/cover no-repeat fixed`,
+          background: `url('/${currentTheme}.png') center/cover no-repeat fixed`,
           zIndex: -1,
         }}
       />
