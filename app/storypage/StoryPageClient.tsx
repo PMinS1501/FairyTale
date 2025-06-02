@@ -1,4 +1,3 @@
-// app/storypage/StoryPageClient.tsx
 "use client"
 
 import { useEffect, useRef, useState } from "react"
@@ -6,15 +5,20 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react"
 import HomeButton from "@/components/home-button"
-import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 
-export default function StoryPageClient() {
-  const searchParams = useSearchParams()
-  const s3Url = searchParams.get("s3Url")
+type RawScript = {
+  page: number
+  s3_path: string
+}
 
-  type Page = { image_url: string; voice_url: string; text_url: string }
+type Page = {
+  image_url: string
+  voice_url: string
+  text_url: string
+}
 
+export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
   const [pages, setPages] = useState<Page[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [subtitles, setSubtitles] = useState<string[]>([])
@@ -23,19 +27,29 @@ export default function StoryPageClient() {
   const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
-    if (typeof s3Url !== "string") return
+    if (!s3Url) return
 
     const loadStory = async () => {
       try {
         const res = await fetch(`/api/proxy-upload?s3Url=${encodeURIComponent(s3Url)}`)
         const json = await res.json()
-        if (Array.isArray(json.items)) {
-          setPages(json.items)
-        } else {
-          console.error("❌ JSON 구조 오류: items 배열 없음")
+
+        const { images, audios, scripts }: { images: string[]; audios: string[]; scripts: RawScript[] } = json
+
+        if (!images || !audios || !scripts) {
+          console.error("❌ JSON 형식 오류: images, audios, scripts 누락")
+          return
         }
+
+        const merged: Page[] = images.map((img, i) => ({
+          image_url: img,
+          voice_url: audios[i],
+          text_url: scripts[i]?.s3_path || ""
+        }))
+
+        setPages(merged)
       } catch (err) {
-        console.error("❌ 동화 JSON 불러오기 실패:", err)
+        console.error("❌ 동화 JSON 로딩 실패:", err)
       }
     }
 
@@ -43,9 +57,25 @@ export default function StoryPageClient() {
   }, [s3Url])
 
   useEffect(() => {
-    const page = pages[currentPage]
-    if (!page?.text_url) return
-    setSubtitles([page.text_url])
+    const fetchSubtitle = async () => {
+      const page = pages[currentPage]
+      if (!page?.text_url) return
+
+      try {
+        const res = await fetch(`/api/proxy-upload?s3Url=${encodeURIComponent(page.text_url)}`)
+        const data = await res.json()
+        if (data.content) {
+          setSubtitles([data.content])
+        } else {
+          setSubtitles(["(자막 없음)"])
+        }
+      } catch (err) {
+        console.error("❌ 자막 불러오기 실패:", err)
+        setSubtitles(["(자막 오류)"])
+      }
+    }
+
+    fetchSubtitle()
   }, [pages, currentPage])
 
   useEffect(() => {

@@ -8,7 +8,6 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface Storybook {
-  id: number
   title: string
   play_time: string
   created_day: string
@@ -21,20 +20,19 @@ export default function SelectionContent() {
   const searchParams = useSearchParams()
 
   const [storybooks, setStorybooks] = useState<Storybook[]>([])
-  const [selectedBook, setSelectedBook] = useState<number | null>(null)
-  const [highlightedBookId, setHighlightedBookId] = useState<number | null>(null)
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [cardRect, setCardRect] = useState<DOMRect | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [startFade, setStartFade] = useState(false)
 
   const selectedCardRef = useRef<HTMLDivElement | null>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const idParam = searchParams.get("highlightedId")
-    if (idParam) setHighlightedBookId(Number(idParam))
+    const highlightParam = searchParams.get("highlightedIndex")
+    if (highlightParam) setHighlightedIndex(Number(highlightParam))
 
     fetch("/api/proxy-upload?path=fairy-tale")
       .then((res) => {
@@ -43,13 +41,18 @@ export default function SelectionContent() {
       })
       .then((data) => {
         const formatted = data.map((item: any) => ({
-          id: Number(item.id),
           title: item.title,
           play_time: `${Math.floor(Number(item.running_time) / 60)}분`,
           created_day: new Date(item.created_at).toLocaleDateString("ko-KR"),
           img: item.thumbnail_url,
           url: item.fairy_tale_url,
         }))
+
+        console.log("응답받은 동화 URL 목록:")
+        formatted.forEach((item: any) => {
+          console.log(`${item.title}: ${item.url}`)
+        })
+
         setStorybooks(formatted)
         setIsLoading(false)
       })
@@ -61,7 +64,7 @@ export default function SelectionContent() {
   }, [searchParams])
 
   const handleOpenStory = () => {
-    if (selectedBook !== null && selectedCardRef.current) {
+    if (selectedIndex !== null && selectedCardRef.current) {
       const rect = selectedCardRef.current.getBoundingClientRect()
       setCardRect(rect)
       setIsAnimating(true)
@@ -69,15 +72,13 @@ export default function SelectionContent() {
   }
 
   const handleCardAnimationComplete = async () => {
-    // 흰색 오버레이 fade-in
     if (overlayRef.current) {
       overlayRef.current.style.transition = "opacity 1.5s ease"
       overlayRef.current.style.opacity = "1"
     }
 
-    // 대기 후 페이지 이동
     await new Promise((res) => setTimeout(res, 1600))
-    const selected = storybooks.find((b) => b.id === selectedBook)
+    const selected = storybooks[selectedIndex!]
     if (selected) {
       router.push(`/storypage?s3Url=${encodeURIComponent(selected.url)}`)
     }
@@ -85,7 +86,6 @@ export default function SelectionContent() {
 
   return (
     <main className="p-8 relative overflow-hidden">
-      {/* 흰색 오버레이 */}
       <div
         ref={overlayRef}
         className="fixed top-0 left-0 w-full h-full bg-white opacity-0 pointer-events-none z-50"
@@ -105,15 +105,15 @@ export default function SelectionContent() {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {storybooks.map((book) => (
+            {storybooks.map((book, idx) => (
               <Card
-                key={book.id}
-                ref={selectedBook === book.id ? selectedCardRef : null}
+                key={idx}
+                ref={selectedIndex === idx ? selectedCardRef : null}
                 className={`p-4 cursor-pointer transition-all ${
-                  selectedBook === book.id ? "ring-2 ring-primary" : ""
-                } ${highlightedBookId === book.id ? "border-4 border-yellow-400" : ""}`}
+                  selectedIndex === idx ? "ring-2 ring-primary" : ""
+                } ${highlightedIndex === idx ? "border-4 border-yellow-400" : ""}`}
                 onClick={(e) => {
-                  setSelectedBook(book.id)
+                  setSelectedIndex(idx)
                   selectedCardRef.current = e.currentTarget
                 }}
               >
@@ -128,16 +128,15 @@ export default function SelectionContent() {
             ))}
           </div>
           <div className="text-center">
-            <Button onClick={handleOpenStory} disabled={selectedBook === null}>
+            <Button onClick={handleOpenStory} disabled={selectedIndex === null}>
               선택한 동화책 보기
             </Button>
           </div>
         </>
       )}
 
-      {/* 카드 확대 & 중앙 이동 애니메이션 */}
       <AnimatePresence>
-        {isAnimating && cardRect && selectedBook !== null && (
+        {isAnimating && cardRect && selectedIndex !== null && (
           <motion.div
             className="fixed z-40 rounded-xl overflow-hidden shadow-2xl"
             style={{
@@ -158,7 +157,7 @@ export default function SelectionContent() {
             onAnimationComplete={handleCardAnimationComplete}
           >
             <Image
-              src={storybooks.find((b) => b.id === selectedBook)?.img ?? ""}
+              src={storybooks[selectedIndex].img}
               alt="썸네일"
               width={cardRect.width}
               height={cardRect.height}

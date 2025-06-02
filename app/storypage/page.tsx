@@ -1,11 +1,6 @@
 // app/storypage/page.tsx
-"use client"
-import dynamic from "next/dynamic"
+import StoryPageClient from "./StoryPageClient"
 
-const StoryPageClient = dynamic(() => import("./StoryPageClient"), {
-  ssr: false,
-})
-
-export default function StoryPage() {
-  return <StoryPageClient />
+export default function StoryPage({ searchParams }: { searchParams: { s3Url?: string } }) {
+  return <StoryPageClient s3Url={searchParams?.s3Url ?? null} />
 }

@@ -4,33 +4,23 @@ import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
-import { Mic, Square, ArrowRight, HelpCircle, Loader2 } from "lucide-react"
+import { Mic, Square, HelpCircle } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import HelpDialog from "@/components/HelpDialog"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 
-const questions = [
-  "오늘 있었던 일 중에 가장 기억에 남는 일이 뭐야?",
-  "그 일은 언제, 어디에서 있었어?",
-  "그때 누구랑 같이 있었고, 어떤 일이 있었는지 이야기해 줄래?",
-  "그 일 때문에 기분이 어땠어?",
-  "그 일이 있고 나서 너는 어떤 생각이 들었어?",
-]
+const question = "오늘 있었던 일 중에 가장 기억에 남는 일이 뭐야?"
 
-// 말풍선 카드 컴포넌트
-const SpeechBubbleCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  return (
-    <div className={`relative ${className}`}>
-      <Card className="relative bg-white border-2 border-white shadow-lg p-8 rounded-3xl">
-        {children}
-        <div className="absolute -bottom-6 left-16 w-0 h-0 border-l-[30px] border-l-transparent border-r-[30px] border-r-transparent border-t-[30px] border-t-white"></div>
-      </Card>
-    </div>
-  )
-}
+const SpeechBubbleCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <div className={`relative ${className}`}>
+    <Card className="relative bg-white border-2 border-white shadow-lg p-8 rounded-3xl">
+      {children}
+      <div className="absolute -bottom-6 left-16 w-0 h-0 border-l-[30px] border-l-transparent border-r-[30px] border-r-transparent border-t-[30px] border-t-white"></div>
+    </Card>
+  </div>
+)
 
-// 캐릭터 컴포넌트
 const Character = () => {
   const { theme } = useTheme()
   const imageSrc = theme === "sky" ? "/jjangu2.jpeg" : "/jjangu.jpeg"
@@ -49,26 +39,18 @@ const Character = () => {
 export default function QuestionsPage() {
   const [helpDialogOpen, setHelpDialogOpen] = useState(false)
   const [helpTab, setHelpTab] = useState<1 | 2>(1)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [recordings, setRecordings] = useState<{ [index: number]: Blob }>({})
-  const [audioUrls, setAudioUrls] = useState<{ [index: number]: string | undefined }>({})
+  const [audioUrl, setAudioUrl] = useState<string | undefined>()
+  const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null)
   const [isRecording, setIsRecording] = useState(false)
-  const [isUploading, setIsUploading] = useState(false)
-  const [isUploaded, setIsUploaded] = useState(false)
-  const [status, setStatus] = useState("")
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
   const router = useRouter()
   const { theme } = useTheme()
 
   const getThemeButtonClass = () => {
-    if (theme === "alley") {
-      return "bg-green-500 hover:bg-green-600 text-white"
-    } else if (theme === "sky") {
-      return "bg-blue-400 hover:bg-blue-500 text-white"
-    } else {
-      return "bg-gray-300 hover:bg-gray-400 text-black"
-    }
+    if (theme === "alley") return "bg-green-500 hover:bg-green-600 text-white"
+    if (theme === "sky") return "bg-blue-400 hover:bg-blue-500 text-white"
+    return "bg-gray-300 hover:bg-gray-400 text-black"
   }
 
   const startRecording = async () => {
@@ -86,16 +68,14 @@ export default function QuestionsPage() {
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: "audio/mpeg" })
-        const audioUrl = URL.createObjectURL(audioBlob)
-        setAudioUrls((prev) => ({ ...prev, [currentIndex]: audioUrl }))
-        setRecordings((prev) => ({ ...prev, [currentIndex]: audioBlob }))
+        setRecordingBlob(audioBlob)
+        setAudioUrl(URL.createObjectURL(audioBlob))
         stream.getTracks().forEach((track) => track.stop())
       }
 
       mediaRecorder.start()
       setIsRecording(true)
     } catch (error) {
-      console.error("마이크 오류:", error)
       alert("마이크 권한을 확인해주세요.")
     }
   }
@@ -105,38 +85,34 @@ export default function QuestionsPage() {
     setIsRecording(false)
   }
 
-  const uploadRecordings = async () => {
-    try {
-      setIsUploading(true)
-      const uploadedUrls: { [key: number]: string } = {}
+  const uploadAndGoNext = () => {
+    if (!recordingBlob) {
+      alert("녹음 먼저 완료해주세요.")
+      return
+    }
 
-      for (const [index, blob] of Object.entries(recordings)) {
-        const formData = new FormData()
-        formData.append("file", blob, `question_${index}.mp3`)
+    // 1. 먼저 페이지 이동
+    router.push(`/loading?storyId=uploaded`)
 
-        const res = await fetch("/api/proxy-upload", {
-          method: "POST",
-          body: formData,
-        })
+    // 2. 백그라운드로 업로드
+    const formData = new FormData()
+    formData.append("file", recordingBlob, `question_1.mp3`)
 
+    fetch("/api/proxy-upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then(async (res) => {
         if (!res.ok) {
           const errorText = await res.text()
-          throw new Error(`(${index}) 업로드 실패: ${res.status} - ${errorText}`)
+          throw new Error(`업로드 실패: ${res.status} - ${errorText}`)
         }
-
         const data = await res.json()
-        uploadedUrls[+index] = data.file_url
-      }
-
-      console.log("✅ 모든 녹음 업로드 완료:", uploadedUrls)
-      setStatus("✅ 전체 업로드 성공!")
-      setIsUploaded(true)
-    } catch (error) {
-      console.error("❌ 업로드 오류:", error)
-      alert(error instanceof Error ? error.message : "업로드 중 오류 발생")
-    } finally {
-      setIsUploading(false)
-    }
+        console.log("✅ 업로드 완료:", data.file_url)
+      })
+      .catch((err) => {
+        console.error("❌ 업로드 실패:", err)
+      })
   }
 
   return (
@@ -155,28 +131,17 @@ export default function QuestionsPage() {
       >
         <HelpCircle className="h-5 w-5" />
       </Button>
-      <HelpDialog
-        open={helpDialogOpen}
-        onOpenChange={setHelpDialogOpen}
-        helpTab={helpTab}
-        setHelpTab={setHelpTab}
-      />
+      <HelpDialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen} helpTab={helpTab} setHelpTab={setHelpTab} />
 
       <div className="w-full max-w-4xl mx-auto pt-20 relative">
-        <h1
-          className={`text-2xl font-bold mb-8 text-center ${
-            theme === "alley" ? "text-lime-400" : "text-black"
-          }`}
-        >
-          질문 {currentIndex + 1} / {questions.length}
+        <h1 className={`text-2xl font-bold mb-8 text-center ${theme === "alley" ? "text-lime-400" : "text-black"}`}>
+          질문
         </h1>
 
         <div className="mb-8">
           <div className="flex justify-center mb-6">
             <SpeechBubbleCard className="w-full max-w-4xl">
-              <p className="text-xl font-medium text-gray-800 leading-relaxed text-center py-4">
-                {questions[currentIndex]}
-              </p>
+              <p className="text-xl font-medium text-gray-800 leading-relaxed text-center py-4">{question}</p>
             </SpeechBubbleCard>
           </div>
 
@@ -188,7 +153,7 @@ export default function QuestionsPage() {
         </div>
 
         <div className="flex flex-col items-center gap-4 mb-8">
-          {!isRecording && !audioUrls[currentIndex] && (
+          {!isRecording && !audioUrl && (
             <Button onClick={startRecording} className="flex items-center gap-2 px-6 py-3 text-lg">
               <Mic className="h-5 w-5" /> 녹음 시작
             </Button>
@@ -202,17 +167,13 @@ export default function QuestionsPage() {
               <Square className="h-5 w-5" /> 녹음 중지
             </Button>
           )}
-          {audioUrls[currentIndex] && !isRecording && (
+          {audioUrl && !isRecording && (
             <div className="flex flex-col items-center gap-4 w-full max-w-md">
-              <audio controls className="w-full" src={audioUrls[currentIndex]} />
+              <audio controls className="w-full" src={audioUrl} />
               <Button
                 onClick={() => {
-                  setAudioUrls((prev) => ({ ...prev, [currentIndex]: undefined }))
-                  setRecordings((prev) => {
-                    const copy = { ...prev }
-                    delete copy[currentIndex]
-                    return copy
-                  })
+                  setAudioUrl(undefined)
+                  setRecordingBlob(null)
                 }}
                 variant="outline"
               >
@@ -222,64 +183,14 @@ export default function QuestionsPage() {
           )}
         </div>
 
-        <div className="flex justify-between mt-8">
+        <div className="flex flex-col items-center gap-4 mt-12">
           <Button
-            onClick={() => setCurrentIndex((i) => Math.max(i - 1, 0))}
-            disabled={currentIndex === 0}
-            variant="secondary"
-            className="px-6 py-2"
+            onClick={uploadAndGoNext}
+            className={`text-xl px-8 py-4 font-bold rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-105 ${getThemeButtonClass()}`}
           >
-            이전
+            동화 만들기!
           </Button>
-          {currentIndex < questions.length - 1 && (
-            <Button
-              onClick={() => setCurrentIndex((i) => i + 1)}
-              disabled={!recordings[currentIndex]}
-              className="px-6 py-2"
-            >
-              다음 <ArrowRight className="h-4 w-4 ml-1" />
-            </Button>
-          )}
         </div>
-
-        {currentIndex === questions.length - 1 &&
-          Object.keys(recordings).length === questions.length && (
-            <div className="flex flex-col items-center gap-4 mt-12">
-              <Button
-                onClick={uploadRecordings}
-                disabled={isUploading || isUploaded}
-                className={`text-lg px-6 py-3 rounded-xl shadow-md ${getThemeButtonClass()}`}
-              >
-                {isUploading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> 업로드 중...
-                  </>
-                ) : isUploaded ? (
-                  "✅ 업로드 완료"
-                ) : (
-                  "녹음 올리기"
-                )}
-              </Button>
-
-              <Button
-                onClick={() => {
-                  if (!isUploaded) {
-                    alert("먼저 '녹음 올리기' 버튼을 눌러 업로드를 완료해주세요.")
-                  } else {
-                    router.push(`/loading?storyId=uploaded`)
-                  }
-                }}
-                disabled={isUploading}
-                className={`text-xl px-8 py-4 font-bold rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-105 ${getThemeButtonClass()}`}
-              >
-                동화 만들기!
-              </Button>
-            </div>
-          )}
-
-        {status && (
-          <p className="mt-6 text-green-600 font-semibold text-center text-lg">{status}</p>
-        )}
       </div>
     </motion.main>
   )
