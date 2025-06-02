@@ -21,7 +21,7 @@ export default function ThemeSwitcher() {
   if (!mounted) return null
 
   return (
-    <div className="fixed bottom-4 left-4 grid grid-cols-2 gap-3">
+    <div className="bottom-4 left-4 grid grid-cols-2 gap-3">
       {themes.map((t) => {
         const Icon = t.icon
         return (

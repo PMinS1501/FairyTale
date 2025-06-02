@@ -273,15 +273,20 @@ export default function SelectionContent() {
     }
   }
 
-const handleBookOpened = () => {
-  const selected = storybooks.find((b) => b.id === selectedBook)
-  if (selected) {
-    router.push(`/storypage?s3Url=${encodeURIComponent(selected.url)}`)
+  const handleBookOpened = () => {
+    const selected = storybooks.find((b) => b.id === selectedBook)
+    if (selected) {
+      router.push(`/storypage?s3Url=${encodeURIComponent(selected.url)}`)
+    }
   }
-}
 
   return (
-    <main className="p-8">
+    <motion.main
+      className="p-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }} // 페이드 인 지속 시간
+    >
       <h1 className="text-2xl font-bold mb-4 text-center">동화책 선택</h1>
 
       {isLoading ? (
@@ -335,6 +340,6 @@ const handleBookOpened = () => {
           </div>
         </motion.div>
       )}
-    </main>
+    </motion.main>
   )
 }

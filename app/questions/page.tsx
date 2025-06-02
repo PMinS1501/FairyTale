@@ -8,6 +8,7 @@ import { Mic, Square, ArrowRight, HelpCircle, Loader2 } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import HelpDialog from "@/components/HelpDialog"
 import { useTheme } from "next-themes"
+import { motion } from "framer-motion"
 
 const questions = [
   "오늘 있었던 일 중에 가장 기억에 남는 일이 뭐야?",
@@ -30,8 +31,6 @@ const SpeechBubbleCard = ({ children, className = "" }: { children: React.ReactN
 }
 
 // 캐릭터 컴포넌트
-import { motion } from "framer-motion"
-
 const Character = () => {
   const { theme } = useTheme()
   const imageSrc = theme === "sky" ? "/jjangu2.jpeg" : "/jjangu.jpeg"
@@ -55,10 +54,22 @@ export default function QuestionsPage() {
   const [audioUrls, setAudioUrls] = useState<{ [index: number]: string | undefined }>({})
   const [isRecording, setIsRecording] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const [isUploaded, setIsUploaded] = useState(false)
   const [status, setStatus] = useState("")
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
   const router = useRouter()
+  const { theme } = useTheme()
+
+  const getThemeButtonClass = () => {
+    if (theme === "alley") {
+      return "bg-green-500 hover:bg-green-600 text-white"
+    } else if (theme === "sky") {
+      return "bg-blue-400 hover:bg-blue-500 text-white"
+    } else {
+      return "bg-gray-300 hover:bg-gray-400 text-black"
+    }
+  }
 
   const startRecording = async () => {
     try {
@@ -94,7 +105,7 @@ export default function QuestionsPage() {
     setIsRecording(false)
   }
 
-  const uploadAllRecordings = async () => {
+  const uploadRecordings = async () => {
     try {
       setIsUploading(true)
       const uploadedUrls: { [key: number]: string } = {}
@@ -119,7 +130,7 @@ export default function QuestionsPage() {
 
       console.log("✅ 모든 녹음 업로드 완료:", uploadedUrls)
       setStatus("✅ 전체 업로드 성공!")
-      router.push(`/loading?storyId=uploaded`)
+      setIsUploaded(true)
     } catch (error) {
       console.error("❌ 업로드 오류:", error)
       alert(error instanceof Error ? error.message : "업로드 중 오류 발생")
@@ -129,7 +140,12 @@ export default function QuestionsPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 sm:p-6 md:p-8 relative">
+    <motion.main
+      className="flex min-h-screen flex-col items-center p-4 sm:p-6 md:p-8 relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
       <HomeButton />
       <Button
         variant="outline"
@@ -147,7 +163,11 @@ export default function QuestionsPage() {
       />
 
       <div className="w-full max-w-4xl mx-auto pt-20 relative">
-        <h1 className="text-2xl font-bold mb-8 text-center">
+        <h1
+          className={`text-2xl font-bold mb-8 text-center ${
+            theme === "alley" ? "text-lime-400" : "text-black"
+          }`}
+        >
           질문 {currentIndex + 1} / {questions.length}
         </h1>
 
@@ -224,19 +244,35 @@ export default function QuestionsPage() {
 
         {currentIndex === questions.length - 1 &&
           Object.keys(recordings).length === questions.length && (
-            <div className="flex justify-center mt-12">
+            <div className="flex flex-col items-center gap-4 mt-12">
               <Button
-                onClick={uploadAllRecordings}
-                disabled={isUploading}
-                className="text-xl px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-105"
+                onClick={uploadRecordings}
+                disabled={isUploading || isUploaded}
+                className={`text-lg px-6 py-3 rounded-xl shadow-md ${getThemeButtonClass()}`}
               >
                 {isUploading ? (
                   <>
                     <Loader2 className="h-5 w-5 animate-spin mr-2" /> 업로드 중...
                   </>
+                ) : isUploaded ? (
+                  "✅ 업로드 완료"
                 ) : (
-                  "✨ 동화 만들기! ✨"
+                  "녹음 올리기"
                 )}
+              </Button>
+
+              <Button
+                onClick={() => {
+                  if (!isUploaded) {
+                    alert("먼저 '녹음 올리기' 버튼을 눌러 업로드를 완료해주세요.")
+                  } else {
+                    router.push(`/loading?storyId=uploaded`)
+                  }
+                }}
+                disabled={isUploading}
+                className={`text-xl px-8 py-4 font-bold rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-105 ${getThemeButtonClass()}`}
+              >
+                동화 만들기!
               </Button>
             </div>
           )}
@@ -245,6 +281,6 @@ export default function QuestionsPage() {
           <p className="mt-6 text-green-600 font-semibold text-center text-lg">{status}</p>
         )}
       </div>
-    </main>
+    </motion.main>
   )
 }
