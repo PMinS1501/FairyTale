@@ -4,13 +4,19 @@ import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
-import { Mic, Square, HelpCircle } from "lucide-react"
+import { Mic, Square, HelpCircle, ArrowRight } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import HelpDialog from "@/components/HelpDialog"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 
-const question = "오늘 있었던 일 중에 가장 기억에 남는 일이 뭐야?"
+const questions = [
+  "오늘 있었던 일 중에 가장 기억에 남는 일이 뭐야?",
+  "그 일은 언제, 어디에서 있었어?",
+  "그때 누구랑 같이 있었고, 어떤 일이 있었는지 이야기해줄래?",
+  "그 일 때문에 기분이 어떘어?",
+  "그 일이 있고 나서 너는 어떤 생각이 들었어?",
+]
 
 const SpeechBubbleCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`relative ${className}`}>
@@ -42,10 +48,14 @@ export default function QuestionsPage() {
   const [audioUrl, setAudioUrl] = useState<string | undefined>()
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null)
   const [isRecording, setIsRecording] = useState(false)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
   const router = useRouter()
   const { theme } = useTheme()
+
+  const question = questions[currentQuestionIndex]
 
   const getThemeButtonClass = () => {
     if (theme === "alley") return "bg-green-500 hover:bg-green-600 text-white"
@@ -85,16 +95,20 @@ export default function QuestionsPage() {
     setIsRecording(false)
   }
 
+  const nextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prev) => prev + 1)
+    }
+  }
+
   const uploadAndGoNext = () => {
     if (!recordingBlob) {
       alert("녹음 먼저 완료해주세요.")
       return
     }
 
-    // 1. 먼저 페이지 이동
     router.push(`/loading?storyId=uploaded`)
 
-    // 2. 백그라운드로 업로드
     const formData = new FormData()
     formData.append("file", recordingBlob, `question_1.mp3`)
 
@@ -159,13 +173,34 @@ export default function QuestionsPage() {
             </Button>
           )}
           {isRecording && (
-            <Button
-              onClick={stopRecording}
-              variant="destructive"
-              className="flex items-center gap-2 px-6 py-3 text-lg animate-pulse"
-            >
-              <Square className="h-5 w-5" /> 녹음 중지
-            </Button>
+            <div className="flex flex-col items-center gap-4">
+              <Button
+                onClick={stopRecording}
+                variant="destructive"
+                className="flex items-center gap-2 px-6 py-3 text-lg animate-pulse"
+              >
+                <Square className="h-5 w-5" /> 녹음 중지
+              </Button>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
+                  disabled={currentQuestionIndex === 0}
+                  variant="outline"
+                  className="flex items-center gap-2 text-lg"
+                >
+                  <ArrowRight className="h-5 w-5 rotate-180" /> 이전 질문
+                </Button>
+
+                <Button
+                  onClick={nextQuestion}
+                  disabled={currentQuestionIndex === questions.length - 1}
+                  className="flex items-center gap-2 text-lg"
+                  >
+                  <ArrowRight className="h-5 w-5" /> 다음 질문
+                </Button>
+              </div>
+            </div>
           )}
           {audioUrl && !isRecording && (
             <div className="flex flex-col items-center gap-4 w-full max-w-md">
@@ -174,10 +209,11 @@ export default function QuestionsPage() {
                 onClick={() => {
                   setAudioUrl(undefined)
                   setRecordingBlob(null)
+                  setCurrentQuestionIndex(0)
                 }}
                 variant="outline"
               >
-                다시 녹음
+                다시 녹음하기!
               </Button>
             </div>
           )}
@@ -187,6 +223,7 @@ export default function QuestionsPage() {
           <Button
             onClick={uploadAndGoNext}
             className={`text-xl px-8 py-4 font-bold rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-105 ${getThemeButtonClass()}`}
+            disabled={!audioUrl}
           >
             동화 만들기!
           </Button>
