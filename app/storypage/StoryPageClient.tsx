@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTheme } from "next-themes" // 테마 가져오기
 
 type RawScript = {
   page: number
@@ -28,6 +29,14 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
   const [currentTime, setCurrentTime] = useState(0)
   const [isSeeking, setIsSeeking] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const { theme } = useTheme() // 테마 가져오기
+
+  // 🎨 테마에 따른 색상 반환
+  const getThemeColor = () => {
+    if (theme === "alley") return "#10b981" // green-500
+    if (theme === "sky") return "#3b82f6"   // blue-500
+    return "#3b82f6" // default
+  }
 
   useEffect(() => {
     if (!s3Url) return
@@ -199,7 +208,7 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
           }}
           className="w-full mb-4 h-2 appearance-none rounded-full bg-transparent"
           style={{
-            background: `linear-gradient(to right, #3b82f6 ${progress}%, #d1d5db ${progress}%)`
+            background: `linear-gradient(to right, ${getThemeColor()} ${progress}%, #d1d5db ${progress}%)`
           }}
         />
 
