@@ -111,25 +111,35 @@ export default function SelectionContent() {
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {storybooks.map((book, idx) => (
-              <Card
-                key={idx}
-                ref={selectedIndex === idx ? selectedCardRef : null}
-                className={`p-4 cursor-pointer transition-all ${
-                  selectedIndex === idx ? "ring-2 ring-primary" : ""
-                } ${highlightedIndex === idx ? "border-4 border-yellow-400" : ""}`}
-                onClick={(e) => {
-                  setSelectedIndex(idx)
-                  selectedCardRef.current = e.currentTarget
-                }}
-              >
-                <div className="relative h-40 mb-2">
-                  <Image src={book.img} alt={book.title} fill className="object-cover rounded" />
-                </div>
-                <h3 className="text-lg font-semibold">{book.title}</h3>
-                <p className="text-sm text-muted-foreground mb-1">
-                  ⏱ {book.play_time} | 🗓 {book.created_day}
-                </p>
-              </Card>
+<Card
+  key={idx}
+  ref={selectedIndex === idx ? selectedCardRef : null}
+  className={`cursor-pointer overflow-hidden transition-all ${
+    selectedIndex === idx ? "ring-2 ring-primary" : ""
+  } ${highlightedIndex === idx ? "border-4 border-yellow-400" : ""}`}
+  onClick={(e) => {
+    setSelectedIndex(idx)
+    selectedCardRef.current = e.currentTarget
+  }}
+>
+  {/* 썸네일 이미지 - 비율 조정 */}
+  <div className="relative w-full aspect-[3/2] rounded">
+    <Image
+      src={book.img}
+      alt={book.title}
+      fill
+      className="object-cover rounded"
+    />
+  </div>
+
+  {/* 텍스트 영역 */}
+  <div className="p-3">
+    <h3 className="text-lg font-semibold truncate">{book.title}</h3>
+    <p className="text-sm text-muted-foreground">
+      ⏱ {book.play_time} | 🗓 {book.created_day}
+    </p>
+  </div>
+</Card>
             ))}
           </div>
           <div className="text-center">

@@ -283,38 +283,43 @@ export default function LoadingPage() {
   const [helpTab, setHelpTab] = useState<1 | 2>(2)
 
   // 샘플 동화 불러오기
-  useEffect(() => {
-    fetch("/api/proxy-upload?path=sample/")
-      .then((res) => res.json())
-      .then((data) => setSamples(data.slice(0, 3)))
-      .catch((err) => console.error("샘플 불러오기 실패:", err))
-  }, [])
+  // useEffect(() => {
+  //   fetch("/api/proxy-upload?path=sample/")
+  //     .then((res) => res.json())
+  //     .then((data) => setSamples(data.slice(0, 3)))
+  //     .catch((err) => console.error("샘플 불러오기 실패:", err))
+  // }, [])
 
   // 200 OK 응답 올 때까지 계속 확인
-  useEffect(() => {
-    const pollForCompletion = async () => {
-      while (true) {
-        try {
-          const res = await fetch("/api/proxy-upload", { method: "GET" })
-          console.log("응답 상태코드:", res.status)
+useEffect(() => {
+  const pollForCompletion = async () => {
+    while (true) {
+      try {
+        const res = await fetch("/api/proxy-upload", { method: "GET" })
+        console.log("응답 수신 여부:", res.ok)
 
-          if (res.status === 200) {
-            console.log("200 OK 수신 동화 생성 완료")
-            setProgressText("동화 생성 완료!")
+        if (res.ok) {
+          console.log("✅ 응답 수신: 동화 생성 완료")
+          setProgressText("동화 생성 완료!")
+
+          const shouldMove = window.confirm("동화가 생성되었어요! 동화 목록으로 이동할까요?")
+          if (shouldMove) {
             router.push("/storybook")
-            break
           }
-        } catch (err) {
-          console.error("실패:", err)
+
+          break
         }
-
-        // 5초 대기 후 다음 요청
-        await new Promise((resolve) => setTimeout(resolve, 5000))
+      } catch (err) {
+        console.error("❌ 요청 실패:", err)
       }
-    }
 
-    pollForCompletion()
-  }, [router])
+      // 5초 대기 후 다음 요청
+      await new Promise((resolve) => setTimeout(resolve, 5000))
+    }
+  }
+
+  pollForCompletion()
+}, [router])
 
   return (
     <main className="flex min-h-screen flex-col items-center p-8">
