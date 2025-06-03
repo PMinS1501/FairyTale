@@ -40,13 +40,18 @@ export default function SelectionContent() {
         return res.json()
       })
       .then((data) => {
-        const formatted = data.map((item: any) => ({
-          title: item.title,
-          play_time: `${Math.floor(Number(item.running_time) / 60)}분`,
-          created_day: new Date(item.created_at).toLocaleDateString("ko-KR"),
-          img: item.thumbnail_url,
-          url: item.fairy_tale_url,
-        }))
+        const formatted = data.map((item: any) => {
+          const adjustedMs = Number(item.running_time) * (5 / 4)
+          const minutes = Math.floor(adjustedMs / 60000)
+          const seconds = Math.floor((adjustedMs % 60000) / 1000)
+          return {
+            title: item.title,
+            play_time: `${minutes}분 ${seconds}초`,
+            created_day: new Date(item.created_at).toLocaleDateString("ko-KR"),
+            img: item.thumbnail_url,
+            url: item.fairy_tale_url,
+          }
+        })
 
         console.log("응답받은 동화 URL 목록:")
         formatted.forEach((item: any) => {

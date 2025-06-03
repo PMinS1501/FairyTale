@@ -82,6 +82,8 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
     const audio = audioRef.current
     if (!audio) return
 
+    audio.playbackRate = 0.8
+
     const updateProgress = () => {
       if (audio.duration) {
         setProgress((audio.currentTime / audio.duration) * 100)
