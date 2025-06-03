@@ -24,6 +24,9 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
   const [subtitles, setSubtitles] = useState<string[]>([])
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [isSeeking, setIsSeeking] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
@@ -33,7 +36,6 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
       try {
         const res = await fetch(`/api/proxy-upload?s3Url=${encodeURIComponent(s3Url)}`)
         const json = await res.json()
-
         const { images, audios, scripts }: { images: string[]; audios: string[]; scripts: RawScript[] } = json
 
         if (!images || !audios || !scripts) {
@@ -85,9 +87,10 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
     audio.playbackRate = 0.8
 
     const updateProgress = () => {
-      if (audio.duration) {
-        setProgress((audio.currentTime / audio.duration) * 100)
-      }
+      if (!audio.duration || isSeeking) return
+      setCurrentTime(audio.currentTime)
+      setDuration(audio.duration)
+      setProgress((audio.currentTime / audio.duration) * 100)
     }
 
     if (isPlaying) audio.play()
@@ -96,7 +99,8 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
     const handleEnded = () => {
       if (currentPage < pages.length - 1) {
         setCurrentPage((prev) => prev + 1)
-        setIsPlaying(true)
+        setIsPlaying(false)
+        setTimeout(() => setIsPlaying(true), 2000)
       } else {
         setIsPlaying(false)
       }
@@ -108,14 +112,30 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
       audio.removeEventListener("timeupdate", updateProgress)
       audio.removeEventListener("ended", handleEnded)
     }
-  }, [isPlaying, currentPage, pages])
+  }, [isPlaying, currentPage, pages, isSeeking])
 
   const togglePlay = () => setIsPlaying((prev) => !prev)
   const goToPage = (index: number) => {
     if (index >= 0 && index < pages.length) {
       setCurrentPage(index)
-      setIsPlaying(true)
+      setIsPlaying(false)
+      setTimeout(() => setIsPlaying(true), 2000)
     }
+  }
+
+  const handleSeek = (value: number) => {
+    const audio = audioRef.current
+    if (!audio || !audio.duration) return
+    const newTime = (value / 100) * audio.duration
+    audio.currentTime = newTime
+    setCurrentTime(newTime)
+    setProgress(value)
+  }
+
+  const formatTime = (sec: number) => {
+    const m = Math.floor(sec / 60)
+    const s = Math.floor(sec % 60)
+    return `${m < 10 ? "0" + m : m}:${s < 10 ? "0" + s : s}`
   }
 
   if (pages.length === 0) return <div className="text-center mt-20">동화 불러오는 중...</div>
@@ -126,7 +146,7 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
   return (
     <main className="p-6 flex flex-col items-center">
       <HomeButton />
-      <div className="max-w-3xl w-full bg-white/90 p-6 rounded-lg shadow-md transition-transform duration-700">
+      <div className="max-w-3xl w-full bg-white/90 p-6 rounded-lg shadow-md transition-transform duration-700 text-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPage}
@@ -134,28 +154,54 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
             animate={{ transform: "rotateY(0deg)", opacity: 1 }}
             exit={{ transform: "rotateY(-90deg)", transformOrigin: "left", opacity: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative w-full h-auto"
+            className="relative w-full h-[400px] bg-gray-100 flex items-center justify-center"
             style={{ transformStyle: "preserve-3d" }}
           >
             <Image
               src={page.image_url}
               alt={`페이지 ${currentPage + 1}`}
               width={600}
-              height={300}
-              className="mx-auto mb-4 rounded shadow-lg"
+              height={400}
+              className="object-contain max-w-full max-h-full"
             />
           </motion.div>
         </AnimatePresence>
 
-        <p className="text-lg text-center mb-4">{subtitleText}</p>
+        <p className="text-lg text-center mt-4 mb-4">{subtitleText}</p>
         <audio ref={audioRef} src={page.voice_url} preload="auto" />
 
-        <div className="w-full h-2 bg-gray-300 rounded-full overflow-hidden mb-4">
-          <div
-            className="h-full bg-blue-500 transition-all"
-            style={{ width: `${progress}%` }}
-          ></div>
+        <div className="flex justify-between text-sm text-gray-600 mb-1">
+          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(duration)}</span>
         </div>
+
+        <input
+          type="range"
+          min={0}
+          max={100}
+          value={progress}
+          onChange={(e) => handleSeek(Number(e.target.value))}
+          onMouseDown={() => {
+            setIsSeeking(true)
+            setIsPlaying(false)
+          }}
+          onMouseUp={() => {
+            setIsSeeking(false)
+            setIsPlaying(true)
+          }}
+          onTouchStart={() => {
+            setIsSeeking(true)
+            setIsPlaying(false)
+          }}
+          onTouchEnd={() => {
+            setIsSeeking(false)
+            setIsPlaying(true)
+          }}
+          className="w-full mb-4 h-2 appearance-none rounded-full bg-transparent"
+          style={{
+            background: `linear-gradient(to right, #3b82f6 ${progress}%, #d1d5db ${progress}%)`
+          }}
+        />
 
         <div className="flex justify-center gap-4">
           <Button onClick={() => goToPage(currentPage - 1)} variant="outline" size="icon">
