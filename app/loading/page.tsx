@@ -263,7 +263,7 @@ import Image from "next/image"
 import { Loader2, HelpCircle } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+//import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import HelpDialog from "@/components/HelpDialog"
 
@@ -272,7 +272,6 @@ interface Storybook {
   img: string
   title: string
   play_time: string
-  keyword: string
 }
 
 export default function LoadingPage() {
@@ -299,7 +298,7 @@ useEffect(() => {
         console.log("응답 수신 여부:", res.ok)
 
         if (res.ok) {
-          console.log("✅ 응답 수신: 동화 생성 완료")
+          console.log("응답 수신: 동화 생성 완료")
           setProgressText("동화 생성 완료!")
 
           const shouldMove = window.confirm("동화가 생성되었어요! 동화 목록으로 이동할까요?")
@@ -310,7 +309,7 @@ useEffect(() => {
           break
         }
       } catch (err) {
-        console.error("❌ 요청 실패:", err)
+        console.error("요청 실패:", err)
       }
 
       // 5초 대기 후 다음 요청
@@ -369,9 +368,6 @@ useEffect(() => {
                   />
                 </div>
                 <h3 className="text-lg font-semibold mb-1">{book.title}</h3>
-                <Badge variant="secondary" className="mb-2 w-fit">
-                  {book.keyword}
-                </Badge>
                 <p className="text-sm text-gray-600">재생 시간: {book.play_time}</p>
               </Card>
             ))}
