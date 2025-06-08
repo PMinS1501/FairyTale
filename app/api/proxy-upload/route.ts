@@ -6,7 +6,25 @@ export async function GET(req: Request) {
   const s3Url = searchParams.get("s3Url")
   const path = searchParams.get("path")
   const id = searchParams.get("id")
+  const checkStatus = searchParams.get("checkStatus")
   const backendUrl = process.env.BACKEND_URL
+
+  // ✅ 상태 체크 요청
+  if (checkStatus === "true") {
+    if (!backendUrl) {
+      return new Response("백엔드 URL이 설정되지 않았습니다", { status: 500 })
+    }
+    
+    try {
+      const res = await fetch(`${backendUrl}/status`, { method: "GET" })
+      if (!res.ok) throw new Error("상태 체크 응답 오류")
+      const data = await res.json()
+      return NextResponse.json(data)
+    } catch (err) {
+      console.error("❌ 상태 체크 실패:", err)
+      return new Response("상태 체크 실패", { status: 500 })
+    }
+  }
 
   // ✅ S3 직접 요청 (개별 동화 JSON 불러오기)
   if (s3Url) {

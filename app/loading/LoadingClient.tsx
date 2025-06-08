@@ -59,6 +59,7 @@ export default function LoadingPage() {
   const overlayRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const { theme } = useTheme()
+  const [showCompletionNotice, setShowCompletionNotice] = useState(false)
 
   // 테마에 따른 색상 반환
   const getThemeColor = () => {
@@ -119,34 +120,48 @@ export default function LoadingPage() {
       })
   }, [searchParams])
 
-  // 200 OK 응답 올 때까지 계속 확인
-  useEffect(() => {
-    const pollForCompletion = async () => {
-      while (true) {
-        try {
-          const res = await fetch("/api/proxy-upload", { method: "GET" })
-          console.log("응답 수신 여부:", res.ok)
+// 처음 30초 대기 후, 15초 간격으로 status 체크
+useEffect(() => {
+  const pollForCompletion = async () => {
+    // 처음 30초 대기
+    console.log("30초 대기 중...")
+    await new Promise((resolve) => setTimeout(resolve, 30000))
 
-          if (res.ok) {
-            console.log("응답 수신: 동화 생성 완료")
+    while (true) {
+      try {
+        const res = await fetch("/api/proxy-upload?checkStatus=true", { method: "GET" })
+        console.log("상태 체크 응답:", res.ok)
+
+        if (res.ok) {
+          const data = await res.json()
+          console.log("상태 데이터:", data)
+
+            if (data.status === 2) {
+            console.log("동화 생성 완료!")
             setProgressText("동화 생성 완료!")
-
-            const shouldMove = window.confirm("동화가 생성되었어요! 동화 목록으로 이동할까요?")
-            if (shouldMove) {
-              router.push("/storybook")
-            }
+            setShowCompletionNotice(true)
             break
+          } else if (data.status === 3) {
+            console.log("동화 생성 실패")
+            setProgressText("동화 생성에 실패했습니다.")
+            alert("동화 생성 중 오류가 발생했습니다. 다시 시도해주세요.")
+            break
+          } else if (data.status === 1) {
+            console.log("처리 중...")
+            setProgressText("동화 생성 중...")
           }
-        } catch (err) {
-          console.error("요청 실패:", err)
         }
-
-        await new Promise((resolve) => setTimeout(resolve, 5000))
+      } catch (err) {
+        console.error("상태 체크 실패:", err)
       }
-    }
 
-    pollForCompletion()
-  }, [router])
+      // 15초 대기
+      await new Promise((resolve) => setTimeout(resolve, 15000))
+    }
+  }
+
+  pollForCompletion()
+}, [router])
 
   const handleOpenStory = () => {
     if (selectedIndex !== null && selectedCardRef.current) {
@@ -283,6 +298,7 @@ export default function LoadingPage() {
   }
 
   return (
+    
     <main className="flex min-h-screen flex-col items-center p-8 relative overflow-hidden">
       <div
         ref={overlayRef}
@@ -368,7 +384,14 @@ export default function LoadingPage() {
           )}
         </div>
       </div>
-
+            {showCompletionNotice && (
+              <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 shadow-lg p-4 rounded-xl z-50 text-center">
+              <p className="text-lg font-semibold mb-2">동화가 생성되었어요! 동화 목록으로 이동할까요?</p>
+              <Button onClick={() => router.push("/selection")}>
+              동화 보러 가기!
+              </Button>
+              </div>
+            )}
       {/* 동화 재생 모달 */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">

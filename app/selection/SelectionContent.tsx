@@ -14,6 +14,7 @@ interface Storybook {
   created_day: string
   img: string
   url: string
+  created_at: string
 }
 
 export default function SelectionContent() {
@@ -41,6 +42,8 @@ export default function SelectionContent() {
         return res.json()
       })
       .then((data) => {
+        data.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+
         const formatted = data.map((item: any) => {
           const adjustedMs = Number(item.running_time) * (5 / 4)
           const minutes = Math.floor(adjustedMs / 60000)
@@ -57,13 +60,14 @@ export default function SelectionContent() {
             }),
             img: item.thumbnail_url,
             url: item.fairy_tale_url,
+            created_at: item.created_at,
           }
         })
 
-        console.log("응답받은 동화 URL 목록:")
-        formatted.forEach((item: any) => {
-          console.log(`${item.title}: ${item.url}`)
-        })
+        const latestIndex = formatted.findIndex(
+          (item: any) => item.created_at === formatted[0].created_at
+        )
+        setHighlightedIndex(latestIndex)
 
         setStorybooks(formatted)
         setIsLoading(false)
@@ -133,7 +137,7 @@ export default function SelectionContent() {
                 ref={selectedIndex === idx ? selectedCardRef : null}
                 className={`cursor-pointer overflow-hidden transition-all ${
                   selectedIndex === idx ? "ring-2 ring-primary" : ""
-                } ${highlightedIndex === idx ? "border-4 border-yellow-400" : ""}`}
+                } ${highlightedIndex === idx ? "border-2 border-sky-400 bg-sky-100" : ""}`}
                 onClick={(e) => {
                   setSelectedIndex(idx)
                   selectedCardRef.current = e.currentTarget
@@ -149,12 +153,8 @@ export default function SelectionContent() {
                 </div>
                 <div className="p-2">
                   <h3 className="text-sm font-semibold truncate">{book.title}</h3>
-                  <p className="text-xs text-muted-foreground">
-                    ⏱ {book.play_time}
-                  </p>
-                  <p className="text-xs text-muted-foreground truncate">
-                    🗓 {book.created_day}
-                  </p>
+                  <p className="text-xs text-muted-foreground">⏱ {book.play_time}</p>
+                  <p className="text-xs text-muted-foreground truncate">🗓 {book.created_day}</p>
                 </div>
               </Card>
             ))}
