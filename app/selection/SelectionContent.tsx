@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Home } from "lucide-react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -47,7 +48,13 @@ export default function SelectionContent() {
           return {
             title: item.title,
             play_time: `${minutes}분 ${seconds}초`,
-            created_day: new Date(item.created_at).toLocaleDateString("ko-KR"),
+            created_day: new Date(item.created_at).toLocaleString("ko-KR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
             img: item.thumbnail_url,
             url: item.fairy_tale_url,
           }
@@ -91,6 +98,16 @@ export default function SelectionContent() {
 
   return (
     <main className="p-8 relative overflow-hidden">
+      {/* Home Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute top-4 left-4 z-10"
+        onClick={() => router.push("/")}
+      >
+        <Home className="h-5 w-5" />
+      </Button>
+
       <div
         ref={overlayRef}
         className="fixed top-0 left-0 w-full h-full bg-white opacity-0 pointer-events-none z-50"
@@ -109,37 +126,37 @@ export default function SelectionContent() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 max-w-6xl mx-auto">
             {storybooks.map((book, idx) => (
-<Card
-  key={idx}
-  ref={selectedIndex === idx ? selectedCardRef : null}
-  className={`cursor-pointer overflow-hidden transition-all ${
-    selectedIndex === idx ? "ring-2 ring-primary" : ""
-  } ${highlightedIndex === idx ? "border-4 border-yellow-400" : ""}`}
-  onClick={(e) => {
-    setSelectedIndex(idx)
-    selectedCardRef.current = e.currentTarget
-  }}
->
-  {/* 썸네일 이미지 - 비율 조정 */}
-  <div className="relative w-full aspect-[3/2] rounded">
-    <Image
-      src={book.img}
-      alt={book.title}
-      fill
-      className="object-cover rounded"
-    />
-  </div>
-
-  {/* 텍스트 영역 */}
-  <div className="p-3">
-    <h3 className="text-lg font-semibold truncate">{book.title}</h3>
-    <p className="text-sm text-muted-foreground">
-      ⏱ {book.play_time} | 🗓 {book.created_day}
-    </p>
-  </div>
-</Card>
+              <Card
+                key={idx}
+                ref={selectedIndex === idx ? selectedCardRef : null}
+                className={`cursor-pointer overflow-hidden transition-all ${
+                  selectedIndex === idx ? "ring-2 ring-primary" : ""
+                } ${highlightedIndex === idx ? "border-4 border-yellow-400" : ""}`}
+                onClick={(e) => {
+                  setSelectedIndex(idx)
+                  selectedCardRef.current = e.currentTarget
+                }}
+              >
+                <div className="relative w-full aspect-[4/3] rounded">
+                  <Image
+                    src={book.img}
+                    alt={book.title}
+                    fill
+                    className="object-cover rounded"
+                  />
+                </div>
+                <div className="p-2">
+                  <h3 className="text-sm font-semibold truncate">{book.title}</h3>
+                  <p className="text-xs text-muted-foreground">
+                    ⏱ {book.play_time}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    🗓 {book.created_day}
+                  </p>
+                </div>
+              </Card>
             ))}
           </div>
           <div className="text-center">

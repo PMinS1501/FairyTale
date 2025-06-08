@@ -43,7 +43,6 @@ const Character = () => {
 
 export default function QuestionsPage() {
   const [helpDialogOpen, setHelpDialogOpen] = useState(false)
-  const [helpTab, setHelpTab] = useState<1 | 2>(1)
   const [audioUrl, setAudioUrl] = useState<string | undefined>()
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null)
   const [isRecording, setIsRecording] = useState(false)
@@ -142,7 +141,7 @@ export default function QuestionsPage() {
       >
         <HelpCircle className="h-5 w-5" />
       </Button>
-      <HelpDialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen} helpTab={helpTab} setHelpTab={setHelpTab} />
+      <HelpDialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen} />
 
       <div className="w-full max-w-4xl mx-auto pt-20 relative">
         <h1 className={`text-2xl font-bold mb-8 text-center ${theme === "alley" ? "text-lime-400" : "text-black"}`}>

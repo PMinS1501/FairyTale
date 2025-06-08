@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react"
+import { Pause, Play, ChevronLeft, ChevronRight, HelpCircle } from "lucide-react"
 import HomeButton from "@/components/home-button"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTheme } from "next-themes" // 테마 가져오기
+import HelpDialog from "@/components/HelpDialog"
 
 type RawScript = {
   page: number
@@ -30,8 +31,9 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
   const [isSeeking, setIsSeeking] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const { theme } = useTheme() // 테마 가져오기
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false)
 
-  // 🎨 테마에 따른 색상 반환
+
   const getThemeColor = () => {
     if (theme === "alley") return "#10b981" // green-500
     if (theme === "sky") return "#3b82f6"   // blue-500
@@ -155,6 +157,15 @@ export default function StoryPageClient({ s3Url }: { s3Url: string | null }) {
   return (
     <main className="p-6 flex flex-col items-center">
       <HomeButton />
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute top-4 left-16 z-10"
+        onClick={() => setHelpDialogOpen(true)}
+      >
+        <HelpCircle className="h-5 w-5" />
+      </Button>
+      <HelpDialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen} initialImage={4} />
       <div className="max-w-3xl w-full bg-white/90 p-6 rounded-lg shadow-md transition-transform duration-700 text-center">
         <AnimatePresence mode="wait">
           <motion.div
