@@ -123,6 +123,24 @@ export default function QuestionsPage() {
       .catch((err) => {
         console.error("업로드 실패:", err)
       })
+
+      //로딩화면 넘어가는 것 확인
+          //const formData = new FormData()
+    //formData.append("file", recordingBlob, `question_1.mp3`)
+
+    //fetch("/api/proxy-upload", {
+      //method: "POST",
+      //body: formData,
+    //})
+      //.then(async (res) => {
+        //if (!res.ok) {
+          //const errorText = await res.text()
+          //throw new Error(`업로드 실패: ${res.status} - ${errorText}`)
+       // }
+      //})
+      //.catch((err) => {
+       // console.error("업로드 실패:", err)
+     // })
   }
 
   return (

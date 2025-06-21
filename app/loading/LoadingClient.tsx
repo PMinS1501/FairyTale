@@ -155,8 +155,8 @@ useEffect(() => {
         console.error("상태 체크 실패:", err)
       }
 
-      // 15초 대기
-      await new Promise((resolve) => setTimeout(resolve, 15000))
+      // 10초 대기
+      await new Promise((resolve) => setTimeout(resolve, 10000))
     }
   }
 
